@@ -24,6 +24,11 @@ namespace HMSWebAPI.Controllers
 
         }
 
-        
+        public User Get(int id)
+        {
+           return dBHelper.GetUsers(id);
+
+        }
+
     }
 }

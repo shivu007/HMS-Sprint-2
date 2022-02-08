@@ -23,7 +23,17 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    
+                    @if (Session["user"] == null)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "UserLogin")</li>
+                    }
+                    else
+                    {
+
+                        <li>@Html.ActionLink("Hello " + ((HMSClientMVC.Models.User)Session["user"]).Username, "", "")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "UserLogin")</li>
+                    }
                 </ul>
             </div>
         </div>

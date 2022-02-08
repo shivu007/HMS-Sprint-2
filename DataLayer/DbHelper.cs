@@ -65,5 +65,11 @@ namespace DataLayer
             return null;
         }
 
+        public User GetUsers(int id)
+        {
+            return context.Users.Find(id);
+        }
+
+
     }
 }

@@ -24,6 +24,7 @@ namespace DataLayer
         public string Username { get; set; }
         public string Pass { get; set; }
         public string Roles { get; set; }
+        public Nullable<int> Uid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DOCTOR> DOCTORs { get; set; }
