@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="76a34ef2f31041e4a5127f77f763b1fb" Name="Diagram1">
+        <EntityTypeShape EntityType="HMSModel.APPOINTMENT" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.DOCTOR" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.IBILL" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.OBILL" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.OPATIENT" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PATIENT" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.ROOM" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="HMSModel.FK__APPOINTME__Docto__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__APPOINTMENT__PID__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__IBILL__APPOINTME__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__OPATIENT__DID__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__OBILL__ADMISSION__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__OPATIENT__PID__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__Test__PID__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
