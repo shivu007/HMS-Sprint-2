@@ -53,6 +53,7 @@
     <Compile Include="APPOINTMENT.cs">
       <DependentUpon>HMSDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbHelper.cs" />
     <Compile Include="DOCTOR.cs">
       <DependentUpon>HMSDataModel.tt</DependentUpon>
     </Compile>
