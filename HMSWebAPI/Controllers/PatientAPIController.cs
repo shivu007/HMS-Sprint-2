@@ -12,20 +12,26 @@ namespace HMSWebAPI.Controllers
     {
         DbHelper dbHelper=new DbHelper();
         //GET api/<controller>
-        public List<PATIENT> Get()
+        public IEnumerable<PATIENT> Get()
         {
           return dbHelper.GetPATIENTs();
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public PATIENT Get(int id)
         {
-            return "value";
+            return dbHelper.GetPATIENTs(id);
         }
 
         // POST api/<controller>
-        public void Post([FromBody] string value)
+        public HttpResponseMessage Post(PATIENT patient)
         {
+            if (patient != null)
+            {
+                dbHelper.AddPatient(patient);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         // PUT api/<controller>/5

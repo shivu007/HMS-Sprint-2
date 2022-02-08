@@ -15,6 +15,24 @@ namespace DataLayer
             return context.PATIENTs.ToList();
         }
 
+        public PATIENT GetPATIENTs(int id)
+        {
+            return context.PATIENTs.Find(id);
+        }
 
+        public bool AddPatient(PATIENT patient)
+        {
+            try
+            {
+                context.PATIENTs.Add(patient);
+                context.SaveChanges();
+                return true;
+            }
+            catch 
+            {
+                
+            }
+            return false;
+        }
     }
 }
