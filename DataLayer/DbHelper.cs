@@ -15,10 +15,15 @@ namespace DataLayer
             return context.PATIENTs.ToList();
         }
 
-        public PATIENT GetPATIENTs(int id)
-        {
-            return context.PATIENTs.Find(id);
-        }
+        //public PATIENT GetPATIENTs(string id)
+        //{
+        //    var pid = context.PATIENTs.FirstOrDefault(i => i.PID == id);
+        //    if (pid != null)
+        //    { 
+        //        return pid;
+        //    }
+        //    return null;
+        //}
 
         public bool AddPatient(PATIENT patient)
         {
@@ -34,5 +39,31 @@ namespace DataLayer
             }
             return false;
         }
+
+        public bool AddUser(User user)
+        {
+            try
+            {
+                context.Users.Add(user);
+                context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+        }
+
+        public User ValidateUser(string username, string password)
+        {
+            var u = context.Users.FirstOrDefault(us => us.Username == username && us.Pass == password );
+            if (u != null)
+            {
+                return u;
+            }
+            return null;
+        }
+
     }
 }

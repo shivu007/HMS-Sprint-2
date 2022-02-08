@@ -18,10 +18,10 @@ namespace HMSWebAPI.Controllers
         }
 
         // GET api/<controller>/5
-        public PATIENT Get(int id)
-        {
-            return dbHelper.GetPATIENTs(id);
-        }
+        //public PATIENT Get(string id)
+        //{
+        //    return dbHelper.GetPATIENTs(id);
+        //}
 
         // POST api/<controller>
         public HttpResponseMessage Post(PATIENT patient)
