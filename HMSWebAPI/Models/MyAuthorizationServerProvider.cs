@@ -30,7 +30,7 @@ namespace HMSWebAPI.Models
             {
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.Pass));
                 identity.AddClaim(new Claim(ClaimTypes.Role, user.Roles));
                 context.Validated(identity);
 
