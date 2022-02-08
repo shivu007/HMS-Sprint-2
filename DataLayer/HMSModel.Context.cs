@@ -15,10 +15,10 @@ namespace DataLayer
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class HMSConnectionString : DbContext
+    public partial class HMSEntities : DbContext
     {
-        public HMSConnectionString()
-            : base("name=HMSConnectionString")
+        public HMSEntities()
+            : base("name=HMSEntities")
         {
         }
     
@@ -35,6 +35,7 @@ namespace DataLayer
         public virtual DbSet<PATIENT> PATIENTs { get; set; }
         public virtual DbSet<ROOM> ROOMs { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     
         public virtual ObjectResult<string> get_doctor_department()
         {

@@ -51,74 +51,75 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APPOINTMENT.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DbHelper.cs" />
     <Compile Include="DOCTOR.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HMSDataModel.Context.cs">
+    <Compile Include="HMSModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HMSDataModel.Context.tt</DependentUpon>
+      <DependentUpon>HMSModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="HMSDataModel.cs">
+    <Compile Include="HMSModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HMSDataModel.Designer.cs">
+    <Compile Include="HMSModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HMSDataModel.edmx</DependentUpon>
+      <DependentUpon>HMSModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="IBILL.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OBILL.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OPATIENT.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PATIENT.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROOM.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Test.cs">
-      <DependentUpon>HMSDataModel.tt</DependentUpon>
+      <DependentUpon>HMSModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="HMSDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HMSDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="User.cs">
+      <DependentUpon>HMSModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="HMSDataModel.edmx.diagram">
-      <DependentUpon>HMSDataModel.edmx</DependentUpon>
+    <EntityDeploy Include="HMSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HMSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="HMSModel.edmx.diagram">
+      <DependentUpon>HMSModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HMSDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HMSDataModel.Context.cs</LastGenOutput>
-      <DependentUpon>HMSDataModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="HMSDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HMSDataModel.edmx</DependentUpon>
-      <LastGenOutput>HMSDataModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="HMSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HMSModel.edmx</DependentUpon>
+      <LastGenOutput>HMSModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HMSModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HMSModel.edmx</DependentUpon>
+      <LastGenOutput>HMSModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

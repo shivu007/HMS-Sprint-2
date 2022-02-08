@@ -12,24 +12,22 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DOCTOR
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DOCTOR()
+        public User()
         {
-            this.APPOINTMENTs = new HashSet<APPOINTMENT>();
-            this.OPATIENTs = new HashSet<OPATIENT>();
+            this.DOCTORs = new HashSet<DOCTOR>();
+            this.PATIENTs = new HashSet<PATIENT>();
         }
     
-        public string DID { get; set; }
-        public string Dept { get; set; }
-        public string Dname { get; set; }
         public string Username { get; set; }
+        public string Pass { get; set; }
+        public string Roles { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<APPOINTMENT> APPOINTMENTs { get; set; }
+        public virtual ICollection<DOCTOR> DOCTORs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OPATIENT> OPATIENTs { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<PATIENT> PATIENTs { get; set; }
     }
 }

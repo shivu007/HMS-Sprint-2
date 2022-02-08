@@ -8,7 +8,12 @@ namespace DataLayer
 {
     public class DbHelper
     {
-        public HMSConnectionString context = new HMSConnectionString();
+        public HMSEntities context = new HMSEntities();
+
+        public List<PATIENT> GetPATIENTs()
+        { 
+            return context.PATIENTs.ToList();
+        }
 
 
     }
