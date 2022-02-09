@@ -59,7 +59,7 @@ namespace DataLayer
 
         public User ValidateUser(string username, string password)
         {
-            var u = context.Users.FirstOrDefault(us => us.Username == username && us.Pass == password );
+            var u = context.Users.FirstOrDefault(us => us.Username == username && us.Pass == password);
             if (u != null)
             {
                 return u;

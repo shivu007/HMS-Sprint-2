@@ -47,6 +47,8 @@ namespace HMSClientMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(User user)
         {
+            List<string> data1 = new List<string>() { "Doctor", "In Patient", "Out Patient" };
+            ViewBag.categories = data1;
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseURL);
@@ -94,11 +96,14 @@ namespace HMSClientMVC.Controllers
                             }
                         }
                     }
+                    
 
                 }
-              
+                ViewBag.Message = "UserName or password is wrong";
+                return View();
+
             }
-            return View();
+            
         }
 
         public ActionResult Logout()
