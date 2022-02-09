@@ -4,26 +4,50 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DataLayer;
+
+
 
 namespace HMSWebAPI.Controllers
 {
     public class OutPatientAPIController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        DbHelper dbHelper = new DbHelper();
+        List<OPATIENT> op = new List<OPATIENT>();
+        public List<OPATIENT> Get()
         {
-            return new string[] { "value1", "value2" };
+            op = dbHelper.GetOPATIENT();
+
+            return op;
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public OPATIENT Get(string id)
         {
-            return "value";
+            op = dbHelper.GetOPATIENT();
+            foreach (OPATIENT o in op)
+            {
+                if (o.ADMISSIONID == id)
+                { 
+                    return o;
+                }
+                
+            }
+            return null;
         }
 
         // POST api/<controller>
-        public void Post([FromBody] string value)
+        public HttpResponseMessage Post(OPATIENT opatient)
         {
+            if (opatient != null)
+            {
+                dbHelper.AddOPATIENT(opatient);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
+
         }
 
         // PUT api/<controller>/5

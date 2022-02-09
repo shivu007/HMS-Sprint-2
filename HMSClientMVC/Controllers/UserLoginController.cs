@@ -98,7 +98,7 @@ namespace HMSClientMVC.Controllers
                                 {
                                     if (user.Username == p.Username)
                                         return RedirectToAction("", "InPatient", "Index");
-                                 }
+                                }
                                 
                                  return RedirectToAction("IPatientRegister", "Appointment", "");
 
@@ -106,7 +106,15 @@ namespace HMSClientMVC.Controllers
                             }
                             else if (user.Roles == "Out Patient")
                             {
-                                return RedirectToAction("OutPatient");
+                                foreach (PATIENT p1 in patients)
+                                {
+                                    if (user.Username == p1.Username)
+                                        return RedirectToAction("", "OutPatient", "Index");
+                                }
+
+                                return RedirectToAction("", "OutPatient", "OPatientRegister");
+
+
                             }
                             else
                             {
