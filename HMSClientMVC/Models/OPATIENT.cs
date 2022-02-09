@@ -14,9 +14,9 @@ namespace HMSClientMVC.Models
         public System.DateTime DISCHARGE_DATE { get; set; }
         public string RoomType { get; set; }
 
-        //public virtual DOCTOR DOCTOR { get; set; }
-        ////[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<OBILL> OBILLs { get; set; }
-        //public virtual PATIENT PATIENT { get; set; }
+        public virtual DOCTOR DOCTOR { get; set; }
+
+        public virtual ICollection<OBILL> OBILLs { get; set; }
+        public virtual PATIENT PATIENT { get; set; }
     }
 }
