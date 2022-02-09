@@ -12,9 +12,9 @@ namespace HMSWebAPI.Models
         public System.DateTime AppointmentDate { get; set; }
         public string PID { get; set; }
 
-        //public virtual DOCTOR DOCTOR { get; set; }
+        public virtual DOCTOR DOCTOR { get; set; }
         public virtual PATIENT PATIENT { get; set; }
-       
-       // public virtual ICollection<IBILL> IBILLs { get; set; }
+
+        public virtual ICollection<IBILL> IBILLs { get; set; }
     }
 }
