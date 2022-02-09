@@ -16,20 +16,34 @@ namespace HMSClientMVC.Controllers
     {
 
         static string baseURL = "https://localhost:44309";
-        
+        List<User> users = new List<User>();
         // GET: UserLogin
         public ActionResult Index()
         {
             return View();
-        }
+        } 
 
-        public ActionResult Login()
+      
+        public  ActionResult Login()
         {
+            //using (HttpClient client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri(baseURL);
+
+            //    HttpResponseMessage httpmsg = await client.GetAsync("/api/UserLoginapi");
+            //    if (httpmsg.IsSuccessStatusCode)
+            //    {
+            //        var response = httpmsg.Content.ReadAsStringAsync().Result;
+            //        users = JsonConvert.DeserializeObject<List<User>>(response);
+                    
+            //    }
+            //}
+           
             List<string> data1 = new List<string>() { "Doctor", "In Patient", "Out Patient" };
             ViewBag.categories = data1;
             return View();
-        }
-
+        } 
+      
         [HttpPost]
         public async Task<ActionResult> Login(User user)
         {
@@ -38,48 +52,52 @@ namespace HMSClientMVC.Controllers
                 client.BaseAddress = new Uri(baseURL);
                 KeyValuePair<string, string> username = new KeyValuePair<string, string>("username", user.Username);
                 KeyValuePair<string, string> password = new KeyValuePair<string, string>("password", user.Pass);
+                
                 KeyValuePair<string, string> granttype = new KeyValuePair<string, string>("grant_type", "password");
                 List<KeyValuePair<string, string>> authkey = new List<KeyValuePair<string, string>>();
                 authkey.Add(username);
                 authkey.Add(password);
+                
                 authkey.Add(granttype);
+                //temp = user.Username;
 
                 var formcontent = new FormUrlEncodedContent(authkey);
                 HttpResponseMessage httpResMsg = await client.PostAsync("/token", formcontent);
-                HttpResponseMessage httpmsg1 = await client.GetAsync("/api/UserLoginapi/" + user.Username);
-                if (httpmsg1.IsSuccessStatusCode)
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/UserLoginapi");
+                if (httpmsg.IsSuccessStatusCode)
                 {
-                    var userResponse = httpmsg1.Content.ReadAsStringAsync().Result;
-                    User users = JsonConvert.DeserializeObject<User>(userResponse);
-                    if (users.Roles == "In Patient")
-                    {
-                        return RedirectToAction("InPatient");
-                    }
-                    else if (users.Roles == "Out Patient")
-                    {
-                        return RedirectToAction("OutPatient");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Doctor");
-                    }
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    users = JsonConvert.DeserializeObject<List<User>>(response);
+
                 }
-
-
-                if (httpResMsg.IsSuccessStatusCode)
+                if (httpResMsg.IsSuccessStatusCode )
                 {
                    
                     var token = JsonConvert.DeserializeObject<Token>(httpResMsg.Content.ReadAsStringAsync().Result);
                     Session["token"] = token.access_token;
                     Session["user"] = user;
-                    
+                    foreach (User u in users)
+                    {
+                        if(u.Username == user.Username && u.Roles==user.Roles)
+                        {
+                            if (user.Roles == "In Patient")
+                            {
+                                return RedirectToAction("InPatient");
+                            }
+                            else if (user.Roles == "Out Patient")
+                            {
+                                return RedirectToAction("OutPatient");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Doctor");
+                            }
+                        }
+                    }
 
-                    
                 }
-                
-
+              
             }
-            
             return View();
         }
 

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="25e68cbb432541f5bb71461ae397ee1a" Name="Diagram1">
+      <Diagram DiagramId="25e68cbb432541f5bb71461ae397ee1a" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="HMSModel.APPOINTMENT" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HMSModel.DOCTOR" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HMSModel.IBILL" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
@@ -12,18 +12,16 @@
         <EntityTypeShape EntityType="HMSModel.OPATIENT" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HMSModel.PATIENT" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HMSModel.ROOM" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HMSModel.User" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="HMSModel.FK__APPOINTME__Docto__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK__APPOINTMENT__PID__571DF1D5" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK__IBILL__APPOINTME__160F4887" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK__OPATIENT__DID__10566F31" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK_UsernameDoc" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK__OBILL__ADMISSION__1332DBDC" ManuallyRouted="false" />
         <AssociationConnector Association="HMSModel.FK__OPATIENT__PID__0F624AF8" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK__Test__PID__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="HMSModel.FK_Username" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="HMSModel.User" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="5.25" PointY="7" />
+        <AssociationConnector Association="HMSModel.FK__Test__PID__4222D4EF" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

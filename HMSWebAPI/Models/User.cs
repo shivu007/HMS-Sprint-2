@@ -14,6 +14,6 @@ namespace HMSWebAPI.Models
         
        // public virtual ICollection<DOCTOR> DOCTORs { get; set; }
       
-        public virtual ICollection<PATIENT> PATIENTs { get; set; }
+        //public virtual ICollection<PATIENT> PATIENTs { get; set; }
     }
 }

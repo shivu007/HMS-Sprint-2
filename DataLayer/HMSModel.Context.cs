@@ -34,8 +34,8 @@ namespace DataLayer
         public virtual DbSet<OPATIENT> OPATIENTs { get; set; }
         public virtual DbSet<PATIENT> PATIENTs { get; set; }
         public virtual DbSet<ROOM> ROOMs { get; set; }
-        public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
     
         public virtual ObjectResult<string> get_doctor_department()
         {

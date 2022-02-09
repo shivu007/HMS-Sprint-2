@@ -23,10 +23,15 @@ namespace HMSWebAPI.Controllers
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
 
         }
-
-        public User Get(int id)
+        
+        public User Get(string uname)
         {
-           return dBHelper.GetUsers(id);
+           return dBHelper.GetUsers(uname);
+
+        }
+        public List<User> Get()
+        {
+           return dBHelper.GetUser();
 
         }
 

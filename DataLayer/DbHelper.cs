@@ -40,6 +40,8 @@ namespace DataLayer
             return false;
         }
 
+        
+
         public bool AddUser(User user)
         {
             try
@@ -65,11 +67,14 @@ namespace DataLayer
             return null;
         }
 
-        public User GetUsers(int id)
+        public User GetUsers(string uname)
         {
-            return context.Users.Find(id);
+            return context.Users.FirstOrDefault(u=> u.Username == uname);
         }
 
-
+        public List<User> GetUser()
+        {
+            return context.Users.ToList();
+        }
     }
 }
