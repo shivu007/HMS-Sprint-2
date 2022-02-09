@@ -181,8 +181,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AppointmentAPIController.cs" />
+    <Compile Include="Controllers\DoctorAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IBillAPIController.cs" />
+    <Compile Include="Controllers\OBillAPIController.cs" />
+    <Compile Include="Controllers\OutPatientAPIController.cs" />
     <Compile Include="Controllers\PatientAPIController.cs" />
+    <Compile Include="Controllers\RoomAPIController.cs" />
+    <Compile Include="Controllers\TestAPIController.cs" />
     <Compile Include="Controllers\UserLoginAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

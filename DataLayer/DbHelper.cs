@@ -9,12 +9,13 @@ namespace DataLayer
     public class DbHelper
     {
         public HMSEntities context = new HMSEntities();
-
+        /*---------------------------------------------------------Patients-----------------------------------------------------------*/
         public List<PATIENT> GetPATIENTs()
         { 
             return context.PATIENTs.ToList();
         }
 
+       
         //public PATIENT GetPATIENTs(string id)
         //{
         //    var pid = context.PATIENTs.FirstOrDefault(i => i.PID == id);
@@ -40,8 +41,8 @@ namespace DataLayer
             return false;
         }
 
-        
 
+        /*---------------------------------------------------------User-----------------------------------------------------------*/
         public bool AddUser(User user)
         {
             try
@@ -75,6 +76,138 @@ namespace DataLayer
         public List<User> GetUser()
         {
             return context.Users.ToList();
+        }
+        /*---------------------------------------------------------Appointment-----------------------------------------------------------*/
+        public List<APPOINTMENT> GetAppointnments()
+        {
+            return context.APPOINTMENTs.ToList();
+        }
+
+        public bool AddAppointment(APPOINTMENT appointment)
+        {
+            try
+            {
+                context.APPOINTMENTs.Add(appointment);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+        }
+
+        public APPOINTMENT GetAppointnments(string appid)
+        {
+            return context.APPOINTMENTs.Find(appid);
+        }
+
+        /*---------------------------------------------------------Doctor-----------------------------------------------------------*/
+        public List<DOCTOR> GetDoctors()
+        {
+            return context.DOCTORs.ToList();
+        }
+
+        public bool AddDoctor(DOCTOR doctor)
+        {
+            try
+            {
+                context.DOCTORs.Add(doctor);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+
+        }
+
+        /*---------------------------------------------------------Test-----------------------------------------------------------*/
+        public List<Test> GetTests()
+        {
+            return context.Tests.ToList();
+        }
+
+        public bool AddTest(Test test)
+        {
+            try
+            {
+                context.Tests.Add(test);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+
+        }
+        /*---------------------------------------------------------OBILL-----------------------------------------------------------*/
+        public List<OBILL> GetOBILLs()
+        {
+            return context.OBILLs.ToList();
+        }
+
+        public bool AddOBILL(OBILL oBILL)
+        {
+            try
+            {
+                context.OBILLs.Add(oBILL);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+
+        }
+        /*---------------------------------------------------------IBILL-----------------------------------------------------------*/
+        public List<IBILL> GetIBILLs()
+        {
+            return context.IBILLs.ToList();
+        }
+
+        public bool AddIBILL(IBILL iBILL)
+        {
+            try
+            {
+                context.IBILLs.Add(iBILL);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+
+        }
+        /*---------------------------------------------------------OutPatient-----------------------------------------------------------*/
+        public List<OPATIENT> GetOPATIENTs()
+        {
+            return context.OPATIENTs.ToList();
+        }
+
+        public bool AddOPATIENT(OPATIENT oPATIENT)
+        {
+            try
+            {
+                context.OPATIENTs.Add(oPATIENT);
+                context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+
         }
     }
 }
