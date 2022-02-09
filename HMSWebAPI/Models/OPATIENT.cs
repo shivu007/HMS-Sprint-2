@@ -15,7 +15,7 @@ namespace HMSWebAPI.Models
         public string RoomType { get; set; }
 
         public virtual DOCTOR DOCTOR { get; set; }
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OBILL> OBILLs { get; set; }
         public virtual PATIENT PATIENT { get; set; }
     }

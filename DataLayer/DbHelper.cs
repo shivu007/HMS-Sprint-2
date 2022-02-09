@@ -189,7 +189,7 @@ namespace DataLayer
 
         }
         /*---------------------------------------------------------OutPatient-----------------------------------------------------------*/
-        public List<OPATIENT> GetOPATIENTs()
+        public List<OPATIENT> GetOPATIENT()
         {
             return context.OPATIENTs.ToList();
         }
@@ -209,5 +209,10 @@ namespace DataLayer
             return false;
 
         }
+
+        //public OPATIENT GetOPatients(string opid)
+        //{
+        //    return context.OPATIENTs.Find(opid);
+        //}
     }
 }
