@@ -12,7 +12,7 @@ namespace HMSWebAPI.Controllers
     {
         DbHelper dbHelper=new DbHelper();
         //GET api/<controller>
-        public IEnumerable<PATIENT> Get()
+        public List<PATIENT> Get()
         {
           return dbHelper.GetPATIENTs();
         }

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "InPatient Dashboar";
+    ViewBag.Title = "Index";
 }
 
 <h2>InPatient</h2>
@@ -10,13 +10,7 @@
 
 <div>
     <button name="SAppoinment">
-        @Ajax.ActionLink("Schedule Appoinment", "ScheduleAppoinment", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
-
+        @Html.ActionLink("Schedule Appoinment", "Create", "InPatient")
     </button>
 
 
@@ -41,7 +35,7 @@
 
     </button>
 
-   
+
 </div>
 
 
@@ -52,7 +46,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-   
+
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 }

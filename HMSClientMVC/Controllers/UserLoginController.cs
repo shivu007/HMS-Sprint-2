@@ -17,6 +17,7 @@ namespace HMSClientMVC.Controllers
 
         static string baseURL = "https://localhost:44309";
         List<User> users = new List<User>();
+        List<PATIENT> patients = new List<PATIENT>();
         // GET: UserLogin
         public ActionResult Index()
         {
@@ -72,6 +73,15 @@ namespace HMSClientMVC.Controllers
                     users = JsonConvert.DeserializeObject<List<User>>(response);
 
                 }
+                //get patients
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+
+                }
+
                 if (httpResMsg.IsSuccessStatusCode )
                 {
                    
@@ -84,7 +94,15 @@ namespace HMSClientMVC.Controllers
                         {
                             if (user.Roles == "In Patient")
                             {
-                                return RedirectToAction("InPatient");
+                                foreach (PATIENT p in patients)
+                                {
+                                    if (user.Username == p.Username)
+                                        return RedirectToAction("", "InPatient", "Index");
+                                 }
+                                
+                                 return RedirectToAction("IPatientRegister", "Appointment", "");
+
+
                             }
                             else if (user.Roles == "Out Patient")
                             {

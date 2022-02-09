@@ -49,7 +49,39 @@ namespace HMSClientMVC.Controllers
             }
             return View();
         }
+        public ActionResult IPatientRegister()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> IPatientRegister(PATIENT patient)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string patientobj = JsonConvert.SerializeObject(patient);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                    var appcontent = new StringContent(patientobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("", "InPatient", "Index");
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
         // GET: Appointment/Create
         public ActionResult Create()
         {
@@ -74,7 +106,7 @@ namespace HMSClientMVC.Controllers
                     HttpResponseMessage httpmsg = await client.PostAsync("/api/AppointmentAPI/" , appcontent);
                     if (httpmsg.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index");
+                        return View();
                     }
                 }
                
