@@ -5,18 +5,22 @@
 }
 
 
-<h2>Login</h2>
+
 
 
 @using (Html.BeginForm())
 {
+    
     @Html.AntiForgeryToken()
     if (@ViewBag.Message != null)
     {
-        <div>
+        <div style="float:right">
             @Html.Partial("LoginError")
         </div>
     }
+    <hr>
+    <h2>Login</h2>
+   
 
     <div class="form-horizontal">
         <h4>User</h4>

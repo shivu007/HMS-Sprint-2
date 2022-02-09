@@ -189,10 +189,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\APPOINTMENT.cs" />
-    <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\DOCTOR.cs" />
+    <Compile Include="Models\IBILL.cs" />
     <Compile Include="Models\MyAuthorizationServerProvider.cs" />
+    <Compile Include="Models\OBILL.cs" />
     <Compile Include="Models\OPATIENT.cs" />
     <Compile Include="Models\PATIENT.cs" />
+    <Compile Include="Models\ROOM.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
