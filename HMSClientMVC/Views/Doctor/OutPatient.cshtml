@@ -15,6 +15,9 @@
     })
 
     </button>
+    @{
+        TempData["InPat"] = "Out";
+    }
     <button name="SAppoinment">
         @Ajax.ActionLink("Create Test", "Test", new AjaxOptions
     {

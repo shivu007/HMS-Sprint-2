@@ -15,6 +15,10 @@ namespace HMSClientMVC.Controllers
     public class DoctorController : Controller
     {
         static string baseURL = "https://localhost:44309";
+        List<PATIENT> patients = new List<PATIENT>();
+        string check;
+        List<PATIENT> InP = new List<PATIENT>();
+        List<PATIENT> OnP = new List<PATIENT>();
         // GET: Doctor
         public ActionResult Index()
         {
@@ -28,13 +32,51 @@ namespace HMSClientMVC.Controllers
         }
 
 
-        public ActionResult Test()
+        public async Task<ActionResult> Test()
         {
+            
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                    foreach (PATIENT p in patients)
+                    { 
+                        if(p.PatientType == "In Patient" || p.PatientType== "In patient")
+                            InP.Add(p);
+                        else
+                            OnP.Add(p);
+                        
+                    }
+                    check = TempData["InPat"].ToString();
+                    if (check == "Inn")
+                        ViewBag.categories = InP;
+
+                    else if (check == "Out")
+                        ViewBag.categories = OnP;
+                }
+            }
+
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> Test(Test test)
         {
+           
+            if (check == "Inn")
+                ViewBag.categories = InP;
+
+            else if (check == "Out")
+                ViewBag.categories = OnP;
+            //string check = TempData["InPat"].ToString();
+            //if (check == "Inn")
+            //    ViewBag.categories = InP;
+            //ViewBag.categories = OnP;
+
+
             try
             {
                 // TODO: Add insert logic here

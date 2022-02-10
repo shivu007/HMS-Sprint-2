@@ -7,21 +7,27 @@
 
 <div>
     <button name="SAppoinment">
-    @Ajax.ActionLink("Load Appointments", "LoadAppointments", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
+        @Ajax.ActionLink("Load Appointments", "LoadAppointments", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "Display",
+            HttpMethod = "Get"
+        })
 
     </button>
+    
     <button name="SAppoinment">
+       
+
+        @{
+            TempData["InPat"] = "Inn";
+        }
         @Ajax.ActionLink("Create Test", "Test", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "Display",
+            HttpMethod = "Get"
+        })
 
     </button>
     <button name="SAppoinment">
