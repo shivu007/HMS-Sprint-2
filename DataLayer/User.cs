@@ -14,8 +14,20 @@ namespace DataLayer
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.DOCTORs = new HashSet<DOCTOR>();
+            this.PATIENTs = new HashSet<PATIENT>();
+        }
+    
         public string Username { get; set; }
         public string Pass { get; set; }
         public string Roles { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DOCTOR> DOCTORs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PATIENT> PATIENTs { get; set; }
     }
 }

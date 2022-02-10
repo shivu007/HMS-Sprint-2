@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InPatientController.cs" />
     <Compile Include="Controllers\OutPatientController.cs" />
@@ -192,6 +193,8 @@
     <Content Include="Views\OutPatient\Index.cshtml" />
     <Content Include="Views\OutPatient\Admission.cshtml" />
     <Content Include="Views\OutPatient\OPatientRegister.cshtml" />
+    <Content Include="Views\Doctor\RegisterDoctor.cshtml" />
+    <Content Include="Views\Doctor\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

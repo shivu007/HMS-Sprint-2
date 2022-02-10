@@ -26,6 +26,7 @@ namespace HMSClientMVC.Models
         [Required]
         public string PAddress { get; set; }
         [Required]
+       
         public string PatientType { get; set; }
         [Required]
         public string Username { get; set; }

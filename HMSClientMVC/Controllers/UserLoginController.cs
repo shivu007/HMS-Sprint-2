@@ -18,6 +18,7 @@ namespace HMSClientMVC.Controllers
         static string baseURL = "https://localhost:44309";
         List<User> users = new List<User>();
         List<PATIENT> patients = new List<PATIENT>();
+        List<DOCTOR> doctors = new List<DOCTOR>();
         // GET: UserLogin
         public ActionResult Index()
         {
@@ -27,19 +28,6 @@ namespace HMSClientMVC.Controllers
       
         public  ActionResult Login()
         {
-            //using (HttpClient client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri(baseURL);
-
-            //    HttpResponseMessage httpmsg = await client.GetAsync("/api/UserLoginapi");
-            //    if (httpmsg.IsSuccessStatusCode)
-            //    {
-            //        var response = httpmsg.Content.ReadAsStringAsync().Result;
-            //        users = JsonConvert.DeserializeObject<List<User>>(response);
-                    
-            //    }
-            //}
-           
             List<string> data1 = new List<string>() { "Doctor", "In Patient", "Out Patient" };
             ViewBag.categories = data1;
             return View();
@@ -81,6 +69,14 @@ namespace HMSClientMVC.Controllers
                     patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
 
                 }
+                //get doctors
+                HttpResponseMessage httpdoctors = await client.GetAsync("/api/DoctorAPI");
+                if (httpdoctors.IsSuccessStatusCode)
+                {
+                    var response = httpdoctors.Content.ReadAsStringAsync().Result;
+                    doctors = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+
+                }
 
                 if (httpResMsg.IsSuccessStatusCode )
                 {
@@ -112,13 +108,19 @@ namespace HMSClientMVC.Controllers
                                         return RedirectToAction("", "OutPatient", "Index");
                                 }
 
-                                return RedirectToAction("", "OutPatient", "OPatientRegister");
+                                return RedirectToAction("OPatientRegister", "OutPatient", "");
 
 
                             }
                             else
                             {
-                                return RedirectToAction("Doctor");
+                                foreach (DOCTOR d in doctors)
+                                {
+                                    if (user.Username == d.Username)
+                                        return RedirectToAction("Dashboard", "Doctor", "");
+                                }
+
+                                return RedirectToAction("RegisterDoctor", "Doctor", "");
                             }
                         }
                     }

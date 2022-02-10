@@ -21,6 +21,8 @@
         <EntityTypeShape EntityType="HMSModel.User" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="5.25" PointY="7" />
         <AssociationConnector Association="HMSModel.FK__Test__PID__4222D4EF" />
+        <AssociationConnector Association="HMSModel.FK_Username" />
+        <AssociationConnector Association="HMSModel.fk_patient" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
