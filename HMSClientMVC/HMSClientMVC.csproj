@@ -194,6 +194,7 @@
     <Content Include="Views\OutPatient\Admission.cshtml" />
     <Content Include="Views\OutPatient\OPatientRegister.cshtml" />
     <Content Include="Views\Doctor\RegisterDoctor.cshtml" />
+    <Content Include="Views\Doctor\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
