@@ -66,12 +66,18 @@ namespace HMSClientMVC.Controllers
         
         public ActionResult OPatientRegister()
         {
+            List<string> data1 = new List<string>() { "Male", "Female" };
+            ViewBag.categories = data1;
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> OPatientRegister(PATIENT patient)
         {
+            List<string> data1 = new List<string>() { "Male", "Female" };
+            ViewBag.categories = data1;
+            patient.Username = TempData["lUsername"].ToString();
+            patient.PatientType = "Out Patient";
             try
             {
                 // TODO: Add insert logic here
