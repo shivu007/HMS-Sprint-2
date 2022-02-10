@@ -33,6 +33,7 @@
                     {
 
                         <li>@Html.ActionLink("Hello " + ((HMSClientMVC.Models.User)Session["user"]).Username, "", "")</li>
+                        TempData["lUsername"] = ((HMSClientMVC.Models.User)Session["user"]).Username;
                         <li>@Html.ActionLink("Logout", "Logout", "UserLogin")</li>
                     }
                 </ul>

@@ -66,35 +66,45 @@ namespace HMSClientMVC.Controllers
         
         public ActionResult OPatientRegister()
         {
+            List<string> data1 = new List<string>() { "Male", "Female" };
+            ViewBag.categories = data1;
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> OPatientRegister(PATIENT patient)
         {
-            try
+            List<string> data1 = new List<string>() { "Male", "Female" };
+            ViewBag.categories = data1;
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-                using (HttpClient client = new HttpClient())
+               
+                patient.Username = TempData["lUsername"].ToString();
+                patient.PatientType = "Out Patient";
+                try
                 {
-                    string patientobj = JsonConvert.SerializeObject(patient);
-                    client.BaseAddress = new Uri(baseURL);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var appcontent = new StringContent(patientobj, UnicodeEncoding.UTF8, "application/json");
-                    HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
-                    if (httpmsg.IsSuccessStatusCode)
+                    // TODO: Add insert logic here
+                    using (HttpClient client = new HttpClient())
                     {
-                        return RedirectToAction("", "OutPatient", "Index");
+                        string patientobj = JsonConvert.SerializeObject(patient);
+                        client.BaseAddress = new Uri(baseURL);
+                        client.DefaultRequestHeaders.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        var appcontent = new StringContent(patientobj, UnicodeEncoding.UTF8, "application/json");
+                        HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
+                        if (httpmsg.IsSuccessStatusCode)
+                        {
+                            return RedirectToAction("", "OutPatient", "Index");
+                        }
                     }
+
+
                 }
-
-
-            }
-            catch
-            {
-                return View();
+                catch
+                {
+                    return View();
+                }
             }
             return View();
         }

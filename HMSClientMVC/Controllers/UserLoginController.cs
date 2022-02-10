@@ -117,7 +117,7 @@ namespace HMSClientMVC.Controllers
                                 foreach (DOCTOR d in doctors)
                                 {
                                     if (user.Username == d.Username)
-                                        return RedirectToAction("Doctor");
+                                        return RedirectToAction("Dashboard", "Doctor", "");
                                 }
 
                                 return RedirectToAction("RegisterDoctor", "Doctor", "");

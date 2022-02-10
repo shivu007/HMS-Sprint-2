@@ -10,13 +10,21 @@ namespace HMSClientMVC.Models
     {
         [Required]
         public string PID { get; set; }
+        [Required]
         public string PName { get; set; }
+        [Required]
         public string PGender { get; set; }
+        [Required]
         public System.DateTime Pdob { get; set; }
+        [Required]
         public int PWeight { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
+        [Required]
         public string Disease { get; set; }
+        [Required]
         public string PAddress { get; set; }
+       
         public string PatientType { get; set; }
         public string Username { get; set; }
 

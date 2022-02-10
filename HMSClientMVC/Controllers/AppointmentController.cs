@@ -51,34 +51,46 @@ namespace HMSClientMVC.Controllers
         }
         public ActionResult IPatientRegister()
         {
+            List<string> data1 = new List<string>() { "Male", "Female" };
+            ViewBag.categories = data1;
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> IPatientRegister(PATIENT patient)
         {
-            try
+            List<string> data1 = new List<string>() { "Male", "Female" };
+            ViewBag.categories = data1;
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-                using (HttpClient client = new HttpClient())
+                
+                patient.Username = TempData["lUsername"].ToString();
+                patient.PatientType = "In Patient";
+
+
+                try
                 {
-                    string patientobj = JsonConvert.SerializeObject(patient);
-                    client.BaseAddress = new Uri(baseURL);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var appcontent = new StringContent(patientobj, UnicodeEncoding.UTF8, "application/json");
-                    HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
-                    if (httpmsg.IsSuccessStatusCode)
+                    // TODO: Add insert logic here
+                    using (HttpClient client = new HttpClient())
                     {
-                        return RedirectToAction("", "InPatient", "Index");
+                        string patientobj = JsonConvert.SerializeObject(patient);
+                        client.BaseAddress = new Uri(baseURL);
+                        client.DefaultRequestHeaders.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        var appcontent = new StringContent(patientobj, UnicodeEncoding.UTF8, "application/json");
+                        HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
+                        if (httpmsg.IsSuccessStatusCode)
+                        {
+                            return RedirectToAction("", "InPatient", "Index");
+                        }
                     }
+
+
                 }
-
-
-            }
-            catch
-            {
-                return View();
+                catch
+                {
+                    return View();
+                }
             }
             return View();
         }
@@ -90,32 +102,9 @@ namespace HMSClientMVC.Controllers
 
         // POST: Appointment/Create
         [HttpPost]
-        public async Task<ActionResult> Create(APPOINTMENT appointment)
+        public ActionResult Create(APPOINTMENT appointment)
         {
-            try
-            {
-                // TODO: Add insert logic here
-                using (HttpClient client = new HttpClient())
-                {
-                    string appobj = JsonConvert.SerializeObject(appointment);
-                    client.BaseAddress = new Uri(baseURL);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var appcontent = new StringContent(appobj, UnicodeEncoding.UTF8, "application/json");
-                    HttpResponseMessage httpmsg = await client.PostAsync("/api/AppointmentAPI/" , appcontent);
-                    if (httpmsg.IsSuccessStatusCode)
-                    {
-                        return View();
-                    }
-                }
-               
-                
-            }
-            catch
-            {
-                return View();
-            }
+           
             return View();
         }
 
