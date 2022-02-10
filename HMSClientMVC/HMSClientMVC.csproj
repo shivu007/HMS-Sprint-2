@@ -195,6 +195,12 @@
     <Content Include="Views\OutPatient\OPatientRegister.cshtml" />
     <Content Include="Views\Doctor\RegisterDoctor.cshtml" />
     <Content Include="Views\Doctor\Dashboard.cshtml" />
+    <Content Include="Views\Doctor\InPatient.cshtml" />
+    <Content Include="Views\Doctor\OutPatient.cshtml" />
+    <Content Include="Views\Doctor\LoadAppointments.cshtml" />
+    <Content Include="Views\Doctor\Test.cshtml" />
+    <Content Include="Views\Doctor\Success.cshtml" />
+    <Content Include="Views\Doctor\IBill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

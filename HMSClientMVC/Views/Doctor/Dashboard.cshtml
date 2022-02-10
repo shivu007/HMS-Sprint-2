@@ -8,36 +8,16 @@
 <hr>
 <div>
     <button name="SAppoinment">
-        @Ajax.ActionLink("Admit Patient", "ViewReport", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
+        @Html.ActionLink("InPatient", "InPatient", "Doctor")
 
     </button>
-
-
     <button name="SAppoinment">
-        @Ajax.ActionLink("Create Test", "ViewReport", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
-
+        @Html.ActionLink("OutPatient", "OutPatient", "Doctor")
+       
     </button>
+   
 
 
-    <button name="SAppoinment">
-        @Ajax.ActionLink("Generate Bill", "ViewBill", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
-
-    </button>
 
 
 </div>
