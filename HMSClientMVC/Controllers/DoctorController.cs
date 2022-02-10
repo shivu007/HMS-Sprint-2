@@ -200,6 +200,80 @@ namespace HMSClientMVC.Controllers
             return View();
            
         }
+
+        public ActionResult AdmitPatient()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AdmitPatient(OPATIENT oPATIENT)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string ibillobj = JsonConvert.SerializeObject(oPATIENT);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/OutPatientAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+
+        public ActionResult OBill()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> OBill(OBILL oBILL)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string ibillobj = JsonConvert.SerializeObject(oBILL);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/OBillAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+
         // GET: Doctor/Details/5
         public ActionResult Details(int id)
         {

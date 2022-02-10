@@ -201,6 +201,8 @@
     <Content Include="Views\Doctor\Test.cshtml" />
     <Content Include="Views\Doctor\Success.cshtml" />
     <Content Include="Views\Doctor\IBill.cshtml" />
+    <Content Include="Views\Doctor\OBill.cshtml" />
+    <Content Include="Views\Doctor\AdmitPatient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
