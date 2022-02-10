@@ -21,41 +21,17 @@ namespace HMSClientMVC.Controllers
         List<PATIENT> OnP = new List<PATIENT>();
         List<DOCTOR> docs = new List<DOCTOR>();
         string DID = null;
-        // GET: Doctor
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+      
+      
         //---------------------------------------------IN Patient---------------------------------------
-        public async Task<ActionResult> InPatient()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(baseURL);
-                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
-                if (httppatients.IsSuccessStatusCode)
-                {
-                    var response = httppatients.Content.ReadAsStringAsync().Result;
-                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
-                    foreach (PATIENT p in patients)
-                    {
-                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
-                            InP.Add(p);
-                        else
-                            OnP.Add(p);
-
-                    }
-                }
-            }
-         return View();
+        public ActionResult InPatient()
+        {    
+          return View();
         }
 
 
         public ActionResult Test()
         {
-
-
             check = TempData["InPat"].ToString();
             if (check == "Inn")
                 ViewBag.categories = InP;
@@ -75,12 +51,7 @@ namespace HMSClientMVC.Controllers
 
             else if (check == "Out")
                 ViewBag.categories = OnP;
-            //string check = TempData["InPat"].ToString();
-            //if (check == "Inn")
-            //    ViewBag.categories = InP;
-            //ViewBag.categories = OnP;
-
-
+        
             try
             {
                 // TODO: Add insert logic here
@@ -204,11 +175,29 @@ namespace HMSClientMVC.Controllers
 
             return View();
         }
-        public ActionResult Dashboard()
+        public async Task<ActionResult> Dashboard()
         {
-           
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                    foreach (PATIENT p in patients)
+                    {
+                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
+                            InP.Add(p);
+                        else
+                            OnP.Add(p);
+
+                    }
+                }
+            }
             return View();
         }
+        
         public ActionResult RegisterDoctor()
         {
             List<string> depts = new List<string>() { "Cardiologist","Dentist","Dermatologists","Gynaecologist","Neurologists","Radiologists"};
@@ -352,76 +341,11 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        // GET: Doctor/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        
 
-        // GET: Doctor/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        
 
-        // POST: Doctor/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+      
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Doctor/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Doctor/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Doctor/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Doctor/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
