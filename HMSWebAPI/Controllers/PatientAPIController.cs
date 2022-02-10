@@ -11,11 +11,16 @@ namespace HMSWebAPI.Controllers
     public class PatientAPIController : ApiController
     {
         DbHelper dbHelper=new DbHelper();
+        int id;
+        
         //GET api/<controller>
         public List<PATIENT> Get()
         {
           return dbHelper.GetPATIENTs();
         }
+
+        
+     
 
         // GET api/<controller>/5
         //public PATIENT Get(string id)
@@ -26,6 +31,7 @@ namespace HMSWebAPI.Controllers
         // POST api/<controller>
         public HttpResponseMessage Post(PATIENT patient)
         {
+            
             if (patient != null)
             {
                 dbHelper.AddPatient(patient);

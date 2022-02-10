@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +9,41 @@ namespace DataLayer
 {
     public class DbHelper
     {
+        
         public HMSEntities context = new HMSEntities();
         /*---------------------------------------------------------Patients-----------------------------------------------------------*/
+        
+        int ipid;
+        string spid;
         public List<PATIENT> GetPATIENTs()
-        { 
+        {
+            ipid = GeTLASTGENID();
+            
             return context.PATIENTs.ToList();
         }
+        public int GeTLASTGENID()
+        {
+            ObjectParameter returnId = new ObjectParameter("pid", typeof(int));
 
-       
+            var value= context.last_generated_id(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgenid()
+        {
+      
+            ipid++;
+            if (ipid < 10)
+                spid = "P00" + ipid;
+            else if (ipid < 100)
+                spid = "P0" + ipid;
+            else
+                spid = "P" + ipid;
+            return spid;
+
+           
+        }
+
         //public PATIENT GetPATIENTs(string id)
         //{
         //    var pid = context.PATIENTs.FirstOrDefault(i => i.PID == id);
@@ -28,6 +56,9 @@ namespace DataLayer
 
         public bool AddPatient(PATIENT patient)
         {
+            ipid = GeTLASTGENID();
+            spid = lastgenid();
+            patient.PID = spid;
             try
             {
 

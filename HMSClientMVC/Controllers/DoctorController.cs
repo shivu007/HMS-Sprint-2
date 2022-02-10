@@ -19,6 +19,10 @@ namespace HMSClientMVC.Controllers
         public ActionResult Index()
         {
             return View();
+        } 
+        public ActionResult Dashboard()
+        {
+            return View();
         }
         public ActionResult RegisterDoctor()
         {
