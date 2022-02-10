@@ -165,6 +165,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MyScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -194,7 +195,6 @@
     <Content Include="Views\Doctor\Dashboard.cshtml" />
     <Content Include="Views\Doctor\InPatient.cshtml" />
     <Content Include="Views\Doctor\OutPatient.cshtml" />
-    <Content Include="Views\Doctor\LoadAppointments.cshtml" />
     <Content Include="Views\Doctor\Test.cshtml" />
     <Content Include="Views\Doctor\Success.cshtml" />
     <Content Include="Views\Doctor\IBill.cshtml" />

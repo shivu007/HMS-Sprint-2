@@ -19,7 +19,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(Model => Model.PID, new SelectList(ViewBag.categories as System.Collections.IEnumerable, "PID", "PID"),
+
+                "Select a Patient ID", new { id = "PID" })
+
+               
                 @Html.ValidationMessageFor(model => model.PID, "", new { @class = "text-danger" })
             </div>
         </div>

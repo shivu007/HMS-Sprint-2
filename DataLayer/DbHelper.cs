@@ -377,11 +377,11 @@ namespace DataLayer
 
             iopid++;
             if (iopid < 10)
-                sopid = "BI00" + iopid;
+                sopid = "A00" + iopid;
             else if (iopid < 100)
-                sopid = "BI0" + iopid;
+                sopid = "A0" + iopid;
             else
-                sopid = "BI" + iopid;
+                sopid = "A" + iopid;
             return sopid;
 
 

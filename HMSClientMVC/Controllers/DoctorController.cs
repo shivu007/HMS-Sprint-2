@@ -19,6 +19,8 @@ namespace HMSClientMVC.Controllers
         string check;
         List<PATIENT> InP = new List<PATIENT>();
         List<PATIENT> OnP = new List<PATIENT>();
+        List<DOCTOR> docs = new List<DOCTOR>();
+        string DID = null;
         // GET: Doctor
         public ActionResult Index()
         {
@@ -26,15 +28,8 @@ namespace HMSClientMVC.Controllers
         }
 
         //---------------------------------------------IN Patient---------------------------------------
-        public ActionResult InPatient()
+        public async Task<ActionResult> InPatient()
         {
-            return View();
-        }
-
-
-        public async Task<ActionResult> Test()
-        {
-            
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseURL);
@@ -44,22 +39,31 @@ namespace HMSClientMVC.Controllers
                     var response = httppatients.Content.ReadAsStringAsync().Result;
                     patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
                     foreach (PATIENT p in patients)
-                    { 
-                        if(p.PatientType == "In Patient" || p.PatientType== "In patient")
+                    {
+                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
                             InP.Add(p);
                         else
                             OnP.Add(p);
-                        
-                    }
-                    check = TempData["InPat"].ToString();
-                    if (check == "Inn")
-                        ViewBag.categories = InP;
 
-                    else if (check == "Out")
-                        ViewBag.categories = OnP;
+                    }
                 }
             }
+         return View();
+        }
 
+
+        public ActionResult Test()
+        {
+
+
+            check = TempData["InPat"].ToString();
+            if (check == "Inn")
+                ViewBag.categories = InP;
+
+            else if (check == "Out")
+                ViewBag.categories = OnP;
+
+        
             return View();
         }
         [HttpPost]
@@ -110,29 +114,14 @@ namespace HMSClientMVC.Controllers
         public async Task<ActionResult> LoadAppointments()
         {
             string doctorname=TempData["lUsername"].ToString();
+            
             List<APPOINTMENT> apps = new List<APPOINTMENT>();
-            List<DOCTOR> docs = new List<DOCTOR>();
-            string DID=null;
+           
+            
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseURL);
-                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
-                if (httpdoc.IsSuccessStatusCode)
-                {
-                    var response = httpdoc.Content.ReadAsStringAsync().Result;
-                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
-                }
-                foreach(DOCTOR d in docs)
-                {
-                    if (d.Username == doctorname)
-                    {
-                        DID = d.DID;
-                    }
-                    else
-                    {
-                        RedirectToAction("UserLogin", "LoginError");
-                    }
-                }
+                
                 HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/"+ DID);
                 if (httpmsg.IsSuccessStatusCode)
                 {
@@ -196,12 +185,28 @@ namespace HMSClientMVC.Controllers
 
 
         //---------------------------------------------IN Patient---------------------------------------
-        public ActionResult OutPatient()
+        public async Task<ActionResult> OutPatient()
         {
+            using (HttpClient client = new HttpClient())
+            {
+                string doctorname = TempData["lUsername"].ToString();
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
+                if (httpdoc.IsSuccessStatusCode)
+                {
+                    var response = httpdoc.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+                }
+               
+
+            }
+           
+
             return View();
         }
         public ActionResult Dashboard()
         {
+           
             return View();
         }
         public ActionResult RegisterDoctor()
@@ -229,7 +234,7 @@ namespace HMSClientMVC.Controllers
                     HttpResponseMessage httpmsg = await client.PostAsync("/api/DoctorAPI/", doccontent);
                     if (httpmsg.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("", "InPatient", "Index");
+                        return RedirectToAction("Dashboard", "Doctor", "");
                     }
                 }
 
@@ -245,12 +250,41 @@ namespace HMSClientMVC.Controllers
 
         public ActionResult AdmitPatient()
         {
+          
+
+           
+               ViewBag.categories = OnP;
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> AdmitPatient(OPATIENT oPATIENT)
         {
+            
+               ViewBag.categories = OnP;
+
+            string doctorname = TempData["lUsername"].ToString();
+            using (HttpClient client = new HttpClient())
+            {
+                
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
+                if (httpdoc.IsSuccessStatusCode)
+                {
+                    var response = httpdoc.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+                }
+
+
+            }
+            foreach (DOCTOR d in docs)
+            {
+                if (d.Username == doctorname)
+                {
+                    oPATIENT.DID = d.DID;
+                }
+               
+            }
             try
             {
                 // TODO: Add insert logic here
@@ -263,12 +297,14 @@ namespace HMSClientMVC.Controllers
 
                     var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
                     HttpResponseMessage httpmsg = await client.PostAsync("/api/OutPatientAPI/", appcontent);
+                   
                     if (httpmsg.IsSuccessStatusCode)
                     {
 
                         return RedirectToAction("Dashboard", "Doctor", "");
 
                     }
+
                 }
 
 
