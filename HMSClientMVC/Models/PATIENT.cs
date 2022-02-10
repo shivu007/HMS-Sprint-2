@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,7 @@ namespace HMSClientMVC.Models
 {
     public class PATIENT
     {
-
+        [Required]
         public string PID { get; set; }
         public string PName { get; set; }
         public string PGender { get; set; }
