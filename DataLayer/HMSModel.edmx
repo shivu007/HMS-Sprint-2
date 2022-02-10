@@ -186,6 +186,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_patient">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PATIENT" Type="Self.PATIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="PATIENT">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Username">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="DOCTOR">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="get_doctor_department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="last_generated_Appoinmentid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="appid" Type="int" Mode="InOut" />
@@ -252,6 +276,14 @@
             <End Role="PATIENT" EntitySet="PATIENT" />
             <End Role="Test" EntitySet="Test" />
           </AssociationSet>
+          <AssociationSet Name="fk_patient" Association="Self.fk_patient">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PATIENT" EntitySet="PATIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Username" Association="Self.FK_Username">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DOCTOR" EntitySet="DOCTOR" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -279,6 +311,7 @@
           <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="APPOINTMENTs" Relationship="Self.FK__APPOINTME__Docto__5629CD9C" FromRole="DOCTOR" ToRole="APPOINTMENT" />
           <NavigationProperty Name="OPATIENTs" Relationship="Self.FK__OPATIENT__DID__10566F31" FromRole="DOCTOR" ToRole="OPATIENT" />
+          <NavigationProperty Name="User" Relationship="HMSModel.FK_Username" FromRole="DOCTOR" ToRole="User" />
         </EntityType>
         <EntityType Name="IBILL">
           <Key>
@@ -339,6 +372,7 @@
           <NavigationProperty Name="APPOINTMENTs" Relationship="Self.FK__APPOINTMENT__PID__571DF1D5" FromRole="PATIENT" ToRole="APPOINTMENT" />
           <NavigationProperty Name="OPATIENTs" Relationship="Self.FK__OPATIENT__PID__0F624AF8" FromRole="PATIENT" ToRole="OPATIENT" />
           <NavigationProperty Name="Tests" Relationship="HMSModel.FK__Test__PID__4222D4EF" FromRole="PATIENT" ToRole="Test" />
+          <NavigationProperty Name="User" Relationship="HMSModel.fk_patient" FromRole="PATIENT" ToRole="User" />
         </EntityType>
         <EntityType Name="ROOM">
           <Key>
@@ -486,6 +520,14 @@
             <End Role="PATIENT" EntitySet="PATIENTs" />
             <End Role="Test" EntitySet="Tests" />
           </AssociationSet>
+          <AssociationSet Name="FK_Username" Association="HMSModel.FK_Username">
+            <End Role="User" EntitySet="Users" />
+            <End Role="DOCTOR" EntitySet="DOCTORs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_patient" Association="HMSModel.fk_patient">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PATIENT" EntitySet="PATIENTs" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -494,6 +536,8 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Roles" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DOCTORs" Relationship="HMSModel.FK_Username" FromRole="User" ToRole="DOCTOR" />
+          <NavigationProperty Name="PATIENTs" Relationship="HMSModel.fk_patient" FromRole="User" ToRole="PATIENT" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -516,6 +560,30 @@
             </Principal>
             <Dependent Role="Test">
               <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Username">
+          <End Type="HMSModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="HMSModel.DOCTOR" Role="DOCTOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="DOCTOR">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_patient">
+          <End Type="HMSModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="HMSModel.PATIENT" Role="PATIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="PATIENT">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

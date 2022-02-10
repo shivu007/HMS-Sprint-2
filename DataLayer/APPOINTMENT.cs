@@ -14,8 +14,12 @@ namespace DataLayer
     
     public partial class APPOINTMENT
     {
-        
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public APPOINTMENT()
+        {
+            this.IBILLs = new HashSet<IBILL>();
+        }
+    
         public string DoctorID { get; set; }
         public string AppointmentID { get; set; }
         public System.DateTime AppointmentDate { get; set; }
@@ -25,10 +29,5 @@ namespace DataLayer
         public virtual PATIENT PATIENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IBILL> IBILLs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public APPOINTMENT()
-        {
-            this.IBILLs = new HashSet<IBILL>();
-        }
     }
 }

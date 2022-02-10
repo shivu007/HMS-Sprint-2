@@ -193,10 +193,10 @@
     <Content Include="Views\OutPatient\Index.cshtml" />
     <Content Include="Views\OutPatient\Admission.cshtml" />
     <Content Include="Views\OutPatient\OPatientRegister.cshtml" />
+    <Content Include="Views\Doctor\RegisterDoctor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Doctor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

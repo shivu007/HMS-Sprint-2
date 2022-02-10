@@ -63,7 +63,11 @@ namespace HMSClientMVC.Controllers
             }
             return View();
         }
-
+        
+        public ActionResult OPatientRegister()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<ActionResult> OPatientRegister(PATIENT patient)
