@@ -30,6 +30,7 @@ namespace DataLayer
         {
             try
             {
+
                 context.PATIENTs.Add(patient);
                 context.SaveChanges();
                 return true;
