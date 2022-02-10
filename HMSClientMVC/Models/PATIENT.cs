@@ -8,6 +8,8 @@ namespace HMSClientMVC.Models
 {
     public class PATIENT
     {
+        private string CurrBdate=DateTime.Now.ToString();
+       
 
         public string PID { get; set; }
         [Required]
@@ -15,7 +17,8 @@ namespace HMSClientMVC.Models
         [Required]
         public string PGender { get; set; }
         [Required]
-        public System.DateTime Pdob { get; set; }
+       
+       public System.DateTime Pdob { get;  set; }
         [Required]
         public int PWeight { get; set; }
         [Required]
