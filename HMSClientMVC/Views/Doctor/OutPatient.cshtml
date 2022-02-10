@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "OutPatient";
+}
+
+<h2>OutPatient</h2>
+
+<div>
+    <button name="SAppoinment">
+        @Ajax.ActionLink("Admit Patient", "ViewReport", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Display",
+        HttpMethod = "Get"
+    })
+
+    </button>
+    <button name="SAppoinment">
+        @Ajax.ActionLink("Create Test", "ViewReport", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Display",
+        HttpMethod = "Get"
+    })
+
+    </button>
+    <button name="SAppoinment">
+        @Ajax.ActionLink("Bill", "ViewReport", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Display",
+        HttpMethod = "Get"
+    })
+
+    </button>
+
+    <button name="SAppoinment">
+        @Html.ActionLink("Back", "Dashboard", "Doctor")
+
+    </button>
+
+
+</div>
+
+
+<div id="Display">
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+}
