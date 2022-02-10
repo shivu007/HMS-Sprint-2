@@ -20,6 +20,8 @@ namespace HMSClientMVC.Controllers
         List<PATIENT> InP = new List<PATIENT>();
         List<PATIENT> OnP = new List<PATIENT>();
         List<DOCTOR> docs = new List<DOCTOR>();
+        List<APPOINTMENT> ap = new List<APPOINTMENT>();
+        List<OPATIENT> ad = new List<OPATIENT>();
         string DID = null;
       
       
@@ -30,15 +32,35 @@ namespace HMSClientMVC.Controllers
         }
 
 
-        public ActionResult Test()
+        public async Task<ActionResult> Test()
         {
-            check = TempData["InPat"].ToString();
-            if (check == "Inn")
-                ViewBag.categories = InP;
 
-            else if (check == "Out")
-                ViewBag.categories = OnP;
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                    foreach (PATIENT p in patients)
+                    {
+                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
+                            InP.Add(p);
+                        else
+                            OnP.Add(p);
 
+                    }
+                    check = TempData["InPat"].ToString();
+                    if (check == "Inn")
+                        ViewBag.categories = InP;
+
+                    else if (check == "Out")
+                        ViewBag.categories = OnP;
+
+                }
+            }
+            
         
             return View();
         }
@@ -117,13 +139,37 @@ namespace HMSClientMVC.Controllers
             return new ContentResult() { Content = html, ContentType = "text/html" };
         }
 
-        public ActionResult IBill()
+        public async Task<ActionResult> IBill()
         {
+
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(baseURL);
+
+
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/OutPatientAPI/");
+                if (httpmsg.IsSuccessStatusCode)
+                {
+
+
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    ad = JsonConvert.DeserializeObject<List<OPATIENT>>(response);
+                    ViewBag.appointment = ad;
+
+
+
+                }
+
+            }
+            
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> IBill(IBILL iBILL)
         {
+            ViewBag.appointment = ad;
             try
             {
                 // TODO: Add insert logic here
@@ -155,7 +201,7 @@ namespace HMSClientMVC.Controllers
 
 
 
-        //---------------------------------------------IN Patient---------------------------------------
+        //---------------------------------------------OUT Patient---------------------------------------
         public async Task<ActionResult> OutPatient()
         {
             using (HttpClient client = new HttpClient())
@@ -171,30 +217,13 @@ namespace HMSClientMVC.Controllers
                
 
             }
-           
+            
+
 
             return View();
         }
-        public async Task<ActionResult> Dashboard()
+        public ActionResult Dashboard()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(baseURL);
-                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
-                if (httppatients.IsSuccessStatusCode)
-                {
-                    var response = httppatients.Content.ReadAsStringAsync().Result;
-                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
-                    foreach (PATIENT p in patients)
-                    {
-                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
-                            InP.Add(p);
-                        else
-                            OnP.Add(p);
-
-                    }
-                }
-            }
             return View();
         }
         
@@ -237,12 +266,34 @@ namespace HMSClientMVC.Controllers
            
         }
 
-        public ActionResult AdmitPatient()
+        public async Task<ActionResult> AdmitPatient()
         {
-          
 
-           
-               ViewBag.categories = OnP;
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                    foreach (PATIENT p in patients)
+                    {
+                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
+                            InP.Add(p);
+                        else
+                            OnP.Add(p);
+
+                    }
+                    check = TempData["InPat"].ToString();
+                   
+
+                    
+                    ViewBag.categories = OnP;
+
+                }
+            }
+
             return View();
         }
 
@@ -250,7 +301,7 @@ namespace HMSClientMVC.Controllers
         public async Task<ActionResult> AdmitPatient(OPATIENT oPATIENT)
         {
             
-               ViewBag.categories = OnP;
+            ViewBag.categories = OnP;
 
             string doctorname = TempData["lUsername"].ToString();
             using (HttpClient client = new HttpClient())
@@ -305,15 +356,38 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        public ActionResult OBill()
+        public async Task<ActionResult> OBill()
         {
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(baseURL);
+
+
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/");
+                if (httpmsg.IsSuccessStatusCode)
+                {
+
+
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    ap = JsonConvert.DeserializeObject<List<APPOINTMENT>>(response);
+                    ViewBag.admission = ap;
+
+
+
+                }
+
+            }
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> OBill(OBILL oBILL)
         {
+           
             try
             {
+                ViewBag.admission = ap;
                 // TODO: Add insert logic here
                 using (HttpClient client = new HttpClient())
                 {

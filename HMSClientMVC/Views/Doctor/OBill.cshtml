@@ -75,7 +75,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ADMISSIONID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ADMISSIONID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(Model => Model.ADMISSIONID, new SelectList(ViewBag.admission as System.Collections.IEnumerable, "ADMISSIONID", "ADMISSIONID"),
+
+               "Select a Admisson ID", new { id = "ADMISSIONID" })
+
+                
                 @Html.ValidationMessageFor(model => model.ADMISSIONID, "", new { @class = "text-danger" })
             </div>
         </div>

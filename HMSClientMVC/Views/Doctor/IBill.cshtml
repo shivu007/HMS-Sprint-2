@@ -59,6 +59,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.APPOINTMENTID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.DropDownListFor(Model => Model.APPOINTMENTID, new SelectList(ViewBag.appointment as System.Collections.IEnumerable, "APPOINTMENTID", "APPOINTMENTID"),
+
+              "Select a APPOINTMENT ID", new { id = "APPOINTMENTID" })
+
+
                 @Html.EditorFor(model => model.APPOINTMENTID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.APPOINTMENTID, "", new { @class = "text-danger" })
             </div>
