@@ -169,6 +169,7 @@ namespace HMSClientMVC.Controllers
                             html1 += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th></tr>";
 
                             foreach (Test t in test)
+
                             {
                                 if (t.PID == uid)
                                 {
