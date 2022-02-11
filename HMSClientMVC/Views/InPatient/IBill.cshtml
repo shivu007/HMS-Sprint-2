@@ -1,0 +1,63 @@
+﻿@model IEnumerable<HMSClientMVC.Models.IBILL>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BillNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineFees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabFees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorFees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.APPOINTMENTID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicineFees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabFees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorFees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.APPOINTMENTID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

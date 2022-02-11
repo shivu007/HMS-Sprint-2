@@ -142,7 +142,7 @@ namespace HMSClientMVC.Controllers
                                     }
                                 }
                                 html += "</html>";
-                                ModelState.Clear();
+                                
                                 return new ContentResult() { Content = html, ContentType = "text/html" };
                             }
                         }
@@ -202,8 +202,10 @@ namespace HMSClientMVC.Controllers
 
 
                                     html1 += "</html>";
-                                  
-                                    return new ContentResult() { Content = html1, ContentType = "text/html" };
+
+                                    //return new ContentResult() { Content = html1, ContentType = "text/html" };
+                                    return View();
+
                                 }
                             }
                         }
