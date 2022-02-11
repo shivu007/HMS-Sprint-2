@@ -91,7 +91,7 @@
           <Property Name="PID" Type="char" MaxLength="4" />
           <Property Name="TestType" Type="varchar" MaxLength="50" />
           <Property Name="TestDate" Type="date" />
-          <Property Name="Remark" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Remark" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -101,7 +101,7 @@
           <Property Name="Pass" Type="varchar" MaxLength="100" />
           <Property Name="Roles" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__APPOINTME__Docto__164452B1">
+        <Association Name="FK__APPOINTME__Docto__5629CD9C">
           <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="0..1" />
           <End Role="APPOINTMENT" Type="Self.APPOINTMENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -113,7 +113,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__APPOINTMENT__PID__173876EA">
+        <Association Name="FK__APPOINTMENT__PID__571DF1D5">
           <End Role="PATIENT" Type="Self.PATIENT" Multiplicity="0..1" />
           <End Role="APPOINTMENT" Type="Self.APPOINTMENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -125,7 +125,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__IBILL__APPOINTME__25869641">
+        <Association Name="FK__IBILL__APPOINTME__160F4887">
           <End Role="APPOINTMENT" Type="Self.APPOINTMENT" Multiplicity="0..1" />
           <End Role="IBILL" Type="Self.IBILL" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,7 +137,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OBILL__ADMISSION__22AA2996">
+        <Association Name="FK__OBILL__ADMISSION__1332DBDC">
           <End Role="OPATIENT" Type="Self.OPATIENT" Multiplicity="0..1" />
           <End Role="OBILL" Type="Self.OBILL" Multiplicity="*" />
           <ReferentialConstraint>
@@ -149,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OPATIENT__DID__1DE57479">
+        <Association Name="FK__OPATIENT__DID__10566F31">
           <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="1" />
           <End Role="OPATIENT" Type="Self.OPATIENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -161,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OPATIENT__PID__1CF15040">
+        <Association Name="FK__OPATIENT__PID__0F624AF8">
           <End Role="PATIENT" Type="Self.PATIENT" Multiplicity="1" />
           <End Role="OPATIENT" Type="Self.OPATIENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -173,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Test__PID__1A14E395">
+        <Association Name="FK__Test__PID__4222D4EF">
           <End Role="PATIENT" Type="Self.PATIENT" Multiplicity="0..1" />
           <End Role="Test" Type="Self.Test" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Username">
+        <Association Name="fk_patient">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="PATIENT" Type="Self.PATIENT" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,6 +193,18 @@
               <PropertyRef Name="Username" />
             </Principal>
             <Dependent Role="PATIENT">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Username">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="DOCTOR">
               <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
@@ -232,37 +244,41 @@
           <EntitySet Name="ROOM" EntityType="Self.ROOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__APPOINTME__Docto__164452B1" Association="Self.FK__APPOINTME__Docto__164452B1">
+          <AssociationSet Name="FK__APPOINTME__Docto__5629CD9C" Association="Self.FK__APPOINTME__Docto__5629CD9C">
             <End Role="DOCTOR" EntitySet="DOCTOR" />
             <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
           </AssociationSet>
-          <AssociationSet Name="FK__APPOINTMENT__PID__173876EA" Association="Self.FK__APPOINTMENT__PID__173876EA">
+          <AssociationSet Name="FK__APPOINTMENT__PID__571DF1D5" Association="Self.FK__APPOINTMENT__PID__571DF1D5">
             <End Role="PATIENT" EntitySet="PATIENT" />
             <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
           </AssociationSet>
-          <AssociationSet Name="FK__IBILL__APPOINTME__25869641" Association="Self.FK__IBILL__APPOINTME__25869641">
+          <AssociationSet Name="FK__IBILL__APPOINTME__160F4887" Association="Self.FK__IBILL__APPOINTME__160F4887">
             <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
             <End Role="IBILL" EntitySet="IBILL" />
           </AssociationSet>
-          <AssociationSet Name="FK__OBILL__ADMISSION__22AA2996" Association="Self.FK__OBILL__ADMISSION__22AA2996">
+          <AssociationSet Name="FK__OBILL__ADMISSION__1332DBDC" Association="Self.FK__OBILL__ADMISSION__1332DBDC">
             <End Role="OPATIENT" EntitySet="OPATIENT" />
             <End Role="OBILL" EntitySet="OBILL" />
           </AssociationSet>
-          <AssociationSet Name="FK__OPATIENT__DID__1DE57479" Association="Self.FK__OPATIENT__DID__1DE57479">
+          <AssociationSet Name="FK__OPATIENT__DID__10566F31" Association="Self.FK__OPATIENT__DID__10566F31">
             <End Role="DOCTOR" EntitySet="DOCTOR" />
             <End Role="OPATIENT" EntitySet="OPATIENT" />
           </AssociationSet>
-          <AssociationSet Name="FK__OPATIENT__PID__1CF15040" Association="Self.FK__OPATIENT__PID__1CF15040">
+          <AssociationSet Name="FK__OPATIENT__PID__0F624AF8" Association="Self.FK__OPATIENT__PID__0F624AF8">
             <End Role="PATIENT" EntitySet="PATIENT" />
             <End Role="OPATIENT" EntitySet="OPATIENT" />
           </AssociationSet>
-          <AssociationSet Name="FK__Test__PID__1A14E395" Association="Self.FK__Test__PID__1A14E395">
+          <AssociationSet Name="FK__Test__PID__4222D4EF" Association="Self.FK__Test__PID__4222D4EF">
             <End Role="PATIENT" EntitySet="PATIENT" />
             <End Role="Test" EntitySet="Test" />
           </AssociationSet>
-          <AssociationSet Name="FK_Username" Association="Self.FK_Username">
+          <AssociationSet Name="fk_patient" Association="Self.fk_patient">
             <End Role="Users" EntitySet="Users" />
             <End Role="PATIENT" EntitySet="PATIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Username" Association="Self.FK_Username">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="DOCTOR" EntitySet="DOCTOR" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -352,7 +368,7 @@
           <NavigationProperty Name="APPOINTMENTs" Relationship="Self.FK__APPOINTMENT__PID__571DF1D5" FromRole="PATIENT" ToRole="APPOINTMENT" />
           <NavigationProperty Name="OPATIENTs" Relationship="Self.FK__OPATIENT__PID__0F624AF8" FromRole="PATIENT" ToRole="OPATIENT" />
           <NavigationProperty Name="User" Relationship="HMSModel.fk_patient" FromRole="PATIENT" ToRole="User" />
-          <NavigationProperty Name="Tests" Relationship="HMSModel.FK__Test__PID__1A14E395" FromRole="PATIENT" ToRole="Test" />
+          <NavigationProperty Name="Tests" Relationship="HMSModel.FK__Test__PID__4222D4EF" FromRole="PATIENT" ToRole="Test" />
         </EntityType>
         <EntityType Name="ROOM">
           <Key>
@@ -504,7 +520,7 @@
             <End Role="PATIENT" EntitySet="PATIENTs" />
           </AssociationSet>
           <EntitySet Name="Tests" EntityType="HMSModel.Test" />
-          <AssociationSet Name="FK__Test__PID__1A14E395" Association="HMSModel.FK__Test__PID__1A14E395">
+          <AssociationSet Name="FK__Test__PID__4222D4EF" Association="HMSModel.FK__Test__PID__4222D4EF">
             <End Role="PATIENT" EntitySet="PATIENTs" />
             <End Role="Test" EntitySet="Tests" />
           </AssociationSet>
@@ -551,10 +567,10 @@
           <Property Name="PID" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <Property Name="TestType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TestDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="PATIENT" Relationship="HMSModel.FK__Test__PID__1A14E395" FromRole="Test" ToRole="PATIENT" />
-          <Property Name="Remark" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PATIENT" Relationship="HMSModel.FK__Test__PID__4222D4EF" FromRole="Test" ToRole="PATIENT" />
         </EntityType>
-        <Association Name="FK__Test__PID__1A14E395">
+        <Association Name="FK__Test__PID__4222D4EF">
           <End Type="HMSModel.PATIENT" Role="PATIENT" Multiplicity="0..1" />
           <End Type="HMSModel.Test" Role="Test" Multiplicity="*" />
           <ReferentialConstraint>
