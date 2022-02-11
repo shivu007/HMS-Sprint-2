@@ -14,6 +14,15 @@ namespace HMSClientMVC.Controllers
 {
     public class OutPatientController : Controller
     {
+        List<OBILL> obill = new List<OBILL>();
+        List<PATIENT> patients = new List<PATIENT>();
+        List<OPATIENT> outp = new List<OPATIENT>();
+        List<Test> test = new List<Test>();
+
+        string uid;
+        string uname;
+        
+
         static string baseURL = "https://localhost:44309";
         // GET: OutPatient
         public ActionResult Index()
@@ -109,48 +118,144 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        // GET: OutPatient/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> OBill()
         {
+            uname = TempData["lUsername"].ToString();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/OBillAPI/");
+
+                if (httpmsg.IsSuccessStatusCode)
+                {
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    obill = JsonConvert.DeserializeObject<List<OBILL>>(response);
+
+
+
+
+                    HttpResponseMessage httppat = await client.GetAsync("/api/PatientAPI/");
+                    if (httppat.IsSuccessStatusCode)
+                    {
+                        var responseap = httppat.Content.ReadAsStringAsync().Result;
+                        patients = JsonConvert.DeserializeObject<List<PATIENT>>(responseap);
+                        foreach (PATIENT p in patients)
+                        {
+                            if (p.Username == uname)
+                            {
+                                uid = p.PID;
+                            }
+                        }
+
+                        string apid = "";
+                        HttpResponseMessage httpapp = await client.GetAsync("/api/OutPatientAPI/");
+                        if (httpapp.IsSuccessStatusCode)
+                        {
+                            var responseapp = httpapp.Content.ReadAsStringAsync().Result;
+                            outp = JsonConvert.DeserializeObject<List<OPATIENT>>(responseapp);
+                            foreach (OPATIENT o in outp)
+                            {
+                                if (o.PID == uid)
+                                {
+                                    apid = o.ADMISSIONID;
+                                }
+                            }
+
+                            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
+                            html += "  <table> ";
+
+
+                            html += "<tr><th>Bill No.</th><th>Admission ID</th><th>Medicine Fees</th><th>Room Charges</th><th>Operation Charges</th><th>Lab Fees</th><th>Doctor Fees</th><th>Total Days</th><th>Total Amount</th></tr>";
+
+                            foreach (OBILL i in obill)
+                            {
+                                if (i.ADMISSIONID == apid)
+                                {
+
+
+
+                                    html += "<tr><td>" + i.BillNo + "</td>";
+                                    html += "<td>" + i.ADMISSIONID + "</td>";
+                                    html += "<td>" + i.MedicineFees + "</td>";
+                                    html += "<td>" + i.RoomCharges + "</td>";
+                                    html += "<td>" + i.OperationCharges + "</td>";
+                                    html += "<td>" + i.LabFees + "</td>";
+                                    html += "<td>" + i.DoctorFees + "</td>";
+                                    html += "<td>" + i.TotalDays + "</td>";
+                                    html += "<td>" + i.TotalAmount + "</td>";
+
+                                    html += "</html>";
+
+                                    return new ContentResult() { Content = html, ContentType = "text/html" };
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
             return View();
+
         }
 
-        // POST: OutPatient/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OutPatient/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> OViewReport()
         {
+            uname = TempData["lUsername"].ToString();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+               
+                    HttpResponseMessage httppat = await client.GetAsync("/api/PatientAPI/");
+                    if (httppat.IsSuccessStatusCode)
+                    {
+                        var responseap = httppat.Content.ReadAsStringAsync().Result;
+                        patients = JsonConvert.DeserializeObject<List<PATIENT>>(responseap);
+                        foreach (PATIENT p in patients)
+                        {
+                            if (p.Username == uname)
+                            {
+                                uid = p.PID;
+                            }
+                        }
+
+                        string apid = "";
+                        HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
+                        if (httptest.IsSuccessStatusCode)
+                        {
+                            var responseapp = httptest.Content.ReadAsStringAsync().Result;
+                            test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
+                            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
+                            html += "  <table> ";
+                            html += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th><th>Doctor Name</th></tr>";
+
+                            foreach (Test t in test)
+                            {
+                                if (t.PID == uid)
+                                {
+                                    apid = t.LabID;
+                                    
+                                    html += "<tr><td>" + t.LabID + "</td>";
+                                    html += "<td>" + t.PID + "</td>";
+                                    html += "<td>" + t.TestType + "</td>";
+                                    html += "<td>" + t.TestDate + "</td>";
+                                    html += "<td>" + t.Remark + "</td>";
+                                    html += "<td>" + t.DoctorName + "</td>";
+
+
+
+                                    html += "</html>";
+
+                                    return new ContentResult() { Content = html, ContentType = "text/html" };
+                                }
+                            }
+                        }
+                    }
+            }
             return View();
-        }
-
-        // POST: OutPatient/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

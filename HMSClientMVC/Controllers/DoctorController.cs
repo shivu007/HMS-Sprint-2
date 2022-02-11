@@ -124,8 +124,8 @@ namespace HMSClientMVC.Controllers
 
             }
 
-
-            string html = "<table border = 2 >";
+            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
+            html += "<table>";
             html += "<tr><th>Patient ID</th><th>Appointment ID</th><th>AppointmentDate</th><th>Doctor ID</th></tr>";
             foreach (APPOINTMENT a in apps)
             {
@@ -139,57 +139,7 @@ namespace HMSClientMVC.Controllers
             return new ContentResult() { Content = html, ContentType = "text/html" };
         }
 
-        public async Task<ActionResult> IBill()
-        {
-
-
-            using (HttpClient client = new HttpClient())
-            {  
-                client.BaseAddress = new Uri(baseURL);
-                HttpResponseMessage httpmsg = await client.GetAsync("/api/OutPatientAPI/");
-                
-                if (httpmsg.IsSuccessStatusCode)
-                {
-                    var response = httpmsg.Content.ReadAsStringAsync().Result;
-                    ad = JsonConvert.DeserializeObject<List<OPATIENT>>(response);
-                    ViewBag.appointment = ad;
-                }
-            }
-            return View();
-
-        }
-        [HttpPost]
-        public async Task<ActionResult> IBill(IBILL iBILL)
-        {
-            ViewBag.appointment = ad;
-            try
-            {
-                // TODO: Add insert logic here
-                using (HttpClient client = new HttpClient())
-                {
-                    string ibillobj = JsonConvert.SerializeObject(iBILL);
-                    client.BaseAddress = new Uri(baseURL);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
-                    HttpResponseMessage httpmsg = await client.PostAsync("/api/IBillAPI/", appcontent);
-                    if (httpmsg.IsSuccessStatusCode)
-                    {
-
-                        return RedirectToAction("Dashboard", "Doctor", "");
-
-                    }
-                }
-
-
-            }
-            catch
-            {
-                return View();
-            }
-            return View();
-        }
+       
 
 
 
@@ -351,25 +301,23 @@ namespace HMSClientMVC.Controllers
         public async Task<ActionResult> OBill()
         {
 
+
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseURL);
-                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/");
-               
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/OutPatientAPI/");
+
                 if (httpmsg.IsSuccessStatusCode)
                 {
-
-
                     var response = httpmsg.Content.ReadAsStringAsync().Result;
-                    ap = JsonConvert.DeserializeObject<List<APPOINTMENT>>(response);
-                    ViewBag.admission = ap;
-
-
-
+                    ad = JsonConvert.DeserializeObject<List<OPATIENT>>(response);
+                    ViewBag.admission = ad;
+                   
                 }
-
             }
             return View();
+
+            
         }
         [HttpPost]
         public async Task<ActionResult> OBill(OBILL oBILL)
@@ -377,7 +325,7 @@ namespace HMSClientMVC.Controllers
            
             try
             {
-                ViewBag.admission = ap;
+                ViewBag.admission = ad;
                 // TODO: Add insert logic here
                 using (HttpClient client = new HttpClient())
                 {
@@ -405,11 +353,67 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        
+        public async Task<ActionResult> IBill()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/");
 
-        
+                if (httpmsg.IsSuccessStatusCode)
+                {
 
-      
+
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    ap = JsonConvert.DeserializeObject<List<APPOINTMENT>>(response);
+
+
+                    ViewBag.appointment = ap;
+
+                }
+
+            }
+            return View();
+
+
+
+        }
+        [HttpPost]
+        public async Task<ActionResult> IBill(IBILL iBILL)
+        {
+            ViewBag.appointment = ap;
+            try
+            {
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string ibillobj = JsonConvert.SerializeObject(iBILL);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/IBillAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+
+
+
+
 
     }
 }

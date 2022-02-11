@@ -10,10 +10,16 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HMSClientMVC.Controllers
 {
     public class InPatientController : Controller
     {
+        List<IBILL> ibill = new List<IBILL>();
+        List<PATIENT> patients = new List<PATIENT>();
+        List<APPOINTMENT> app = new List<APPOINTMENT>();
+        string uid;
+        string uname;
         static string baseURL = "https://localhost:44309";
         // GET: InPatient
         public ActionResult Index()
@@ -65,48 +71,86 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        // GET: InPatient/Edit/5
-        public ActionResult Edit(int id)
+
+        public async Task<ActionResult> IBill()
         {
+            uname = TempData["lUsername"].ToString();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/IBillAPI/");
+
+                if (httpmsg.IsSuccessStatusCode)
+                {
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    ibill = JsonConvert.DeserializeObject<List<IBILL>>(response);
+                    
+
+                   
+
+                        HttpResponseMessage httppat = await client.GetAsync("/api/PatientAPI/");
+                    if (httppat.IsSuccessStatusCode)
+                    {
+                        var responseap = httppat.Content.ReadAsStringAsync().Result;
+                        patients = JsonConvert.DeserializeObject<List<PATIENT>>(responseap);
+                        foreach (PATIENT p in patients)
+                        {
+                            if (p.Username == uname)
+                            {
+                                uid = p.PID;
+                            }
+                        }
+
+                        string apid = "";
+                        HttpResponseMessage httpapp = await client.GetAsync("/api/AppointmentAPI/");
+                        if (httpapp.IsSuccessStatusCode)
+                        {
+                            var responseapp = httpapp.Content.ReadAsStringAsync().Result;
+                            app = JsonConvert.DeserializeObject<List<APPOINTMENT>>(responseapp);
+                            foreach (APPOINTMENT a in app)
+                            {
+                                if (a.PID == uid)
+                                {
+                                    apid = a.AppointmentID;
+                                }
+                            }
+                          
+                            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
+                            html += "  <table> ";
+                            
+
+                            html += "<tr><th>Bill No.</th><th>Appointment ID</th><th>Medicine Fees</th><th>Operation Charges</th><th>Lab Fees</th><th>Doctor Fees</th><th>Total Amount</th></tr>";
+
+                            foreach (IBILL i in ibill)
+                            {
+                                if (i.APPOINTMENTID == apid)
+                                {
+
+
+
+                                    html += "<tr><td>" + i.BillNo + "</td>";
+                                    html += "<td>" + i.APPOINTMENTID + "</td>";
+                                    html += "<td>" + i.MedicineFees + "</td>";
+                                    html += "<td>" + i.OperationCharges + "</td>";
+                                    html += "<td>" + i.LabFees + "</td>";
+                                    html += "<td>" + i.DoctorFees + "</td>";
+                                    html += "<td>" + i.TotalAmount + "</td>";
+
+                                    html += "</html>";
+
+                                    return new ContentResult() { Content = html, ContentType = "text/html" };
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
             return View();
-        }
-
-        // POST: InPatient/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: InPatient/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: InPatient/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+           
+        } 
+        
     }
 }
