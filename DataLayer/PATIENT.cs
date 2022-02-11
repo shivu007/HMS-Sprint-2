@@ -37,8 +37,8 @@ namespace DataLayer
         public virtual ICollection<APPOINTMENT> APPOINTMENTs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OPATIENT> OPATIENTs { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Test> Tests { get; set; }
+        public virtual User User { get; set; }
     }
 }
