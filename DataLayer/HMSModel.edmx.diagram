@@ -5,25 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="25e68cbb432541f5bb71461ae397ee1a" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="HMSModel.APPOINTMENT" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="HMSModel.DOCTOR" Width="1.5" PointX="3" PointY="3.25" />
-        <EntityTypeShape EntityType="HMSModel.IBILL" Width="1.5" PointX="7.5" PointY="1.375" />
-        <EntityTypeShape EntityType="HMSModel.OBILL" Width="1.5" PointX="10.5" PointY="5.25" />
-        <EntityTypeShape EntityType="HMSModel.OPATIENT" Width="1.5" PointX="8.25" PointY="5.375" />
-        <EntityTypeShape EntityType="HMSModel.PATIENT" Width="1.5" PointX="3" PointY="6.375" />
-        <EntityTypeShape EntityType="HMSModel.ROOM" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="5.25" PointY="7.125" />
-        <EntityTypeShape EntityType="HMSModel.User" Width="1.5" PointX="0.75" PointY="5.75" />
-        <AssociationConnector Association="HMSModel.FK__APPOINTME__Docto__1FCDBCEB" />
-        <AssociationConnector Association="HMSModel.FK__APPOINTMENT__PID__20C1E124" />
-        <AssociationConnector Association="HMSModel.FK__IBILL__APPOINTME__34C8D9D1" />
-        <AssociationConnector Association="HMSModel.FK__OPATIENT__DID__276EDEB3" />
-        <AssociationConnector Association="HMSModel.FK_ForeignName" />
-        <AssociationConnector Association="HMSModel.FK__OBILL__ADMISSION__31EC6D26" />
-        <AssociationConnector Association="HMSModel.FK__OPATIENT__PID__267ABA7A" />
-        <AssociationConnector Association="HMSModel.FK__PATIENT__Usernam__49C3F6B7" />
-        <AssociationConnector Association="HMSModel.FK__Test__PID__239E4DCF" />
-      </Diagram>
+        <EntityTypeShape EntityType="HMSModel.APPOINTMENT" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.DOCTOR" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.IBILL" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.OBILL" Width="1.5" PointX="10.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.OPATIENT" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PATIENT" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.ROOM" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="HMSModel.FK__APPOINTME__Docto__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__APPOINTMENT__PID__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__IBILL__APPOINTME__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__OPATIENT__DID__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__OBILL__ADMISSION__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK__OPATIENT__PID__0F624AF8" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HMSModel.User" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="HMSModel.FK_Username" />
+        <AssociationConnector Association="HMSModel.fk_patient" />
+        <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="5.25" PointY="7.25" />
+        <AssociationConnector Association="HMSModel.FK__Test__PID__1A14E395" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
