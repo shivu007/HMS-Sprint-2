@@ -16,3 +16,12 @@ th {
     background-color: #B6DDDC;
     color: white;
 }
+
+input {
+    background-color: #68a5ce;
+    text-decoration-color:white;
+}
+button {
+    background-color: #68a5ce;
+    text-decoration-color: white;
+}
