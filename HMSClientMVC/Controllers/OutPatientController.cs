@@ -30,18 +30,7 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        // GET: OutPatient/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: OutPatient/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
+      
         // POST: OutPatient/Create
         [HttpPost]
         public async Task<ActionResult> Admission(OPATIENT opatient)
@@ -230,7 +219,7 @@ namespace HMSClientMVC.Controllers
                             test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
                             string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
                             html += "  <table> ";
-                            html += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th><th>Doctor Name</th></tr>";
+                            html += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th></tr>";
 
                             foreach (Test t in test)
                             {
@@ -243,12 +232,8 @@ namespace HMSClientMVC.Controllers
                                     html += "<td>" + t.TestType + "</td>";
                                     html += "<td>" + t.TestDate + "</td>";
                                     html += "<td>" + t.Remark + "</td>";
-                                    html += "<td>" + t.DoctorName + "</td>";
-
-
-
                                     html += "</html>";
-
+                                  
                                     return new ContentResult() { Content = html, ContentType = "text/html" };
                                 }
                             }

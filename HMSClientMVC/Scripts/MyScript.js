@@ -21,3 +21,4 @@ $("#TotalDays").change(function () {
     $("#TotalAmount").val(Med + OC + LF + DF + RC*TD);
 
 });
+
