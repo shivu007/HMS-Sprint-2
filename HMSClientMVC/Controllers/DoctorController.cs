@@ -144,27 +144,19 @@ namespace HMSClientMVC.Controllers
 
 
             using (HttpClient client = new HttpClient())
-            {
-
+            {  
                 client.BaseAddress = new Uri(baseURL);
-
-
                 HttpResponseMessage httpmsg = await client.GetAsync("/api/OutPatientAPI/");
+                
                 if (httpmsg.IsSuccessStatusCode)
                 {
-
-
                     var response = httpmsg.Content.ReadAsStringAsync().Result;
                     ad = JsonConvert.DeserializeObject<List<OPATIENT>>(response);
                     ViewBag.appointment = ad;
-
-
-
                 }
-
             }
-            
             return View();
+
         }
         [HttpPost]
         public async Task<ActionResult> IBill(IBILL iBILL)
@@ -361,11 +353,9 @@ namespace HMSClientMVC.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-
                 client.BaseAddress = new Uri(baseURL);
-
-
                 HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/");
+               
                 if (httpmsg.IsSuccessStatusCode)
                 {
 
