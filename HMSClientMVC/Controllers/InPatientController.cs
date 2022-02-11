@@ -73,7 +73,7 @@ namespace HMSClientMVC.Controllers
         public async Task<ActionResult> IBill()
         {
             uname = TempData["lUsername"].ToString();
-
+            List<IBILL> bills = new List<IBILL>();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = new HttpClient())
@@ -116,34 +116,16 @@ namespace HMSClientMVC.Controllers
                                         apid = a.AppointmentID;
                                     }
                                 }
-
-                                string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-                                html += "  <table> ";
-
-
-                                html += "<tr><th>Bill No.</th><th>Appointment ID</th><th>Medicine Fees</th><th>Operation Charges</th><th>Lab Fees</th><th>Doctor Fees</th><th>Total Amount</th></tr>";
-
                                 foreach (IBILL i in ibill)
                                 {
                                     if (i.APPOINTMENTID == apid)
                                     {
-
-
-
-                                        html += "<tr><td>" + i.BillNo + "</td>";
-                                        html += "<td>" + i.APPOINTMENTID + "</td>";
-                                        html += "<td>" + i.MedicineFees + "</td>";
-                                        html += "<td>" + i.OperationCharges + "</td>";
-                                        html += "<td>" + i.LabFees + "</td>";
-                                        html += "<td>" + i.DoctorFees + "</td>";
-                                        html += "<td>" + i.TotalAmount + "</td>";
-
-
+                                        bills.Add(i);
                                     }
                                 }
-                                html += "</html>";
                                 
-                                return new ContentResult() { Content = html, ContentType = "text/html" };
+
+                                return View(bills);
                             }
                         }
 
