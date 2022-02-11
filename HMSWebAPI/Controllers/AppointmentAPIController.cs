@@ -14,6 +14,10 @@ namespace HMSWebAPI.Controllers
     {
         DbHelper dBHelper = new DbHelper();
         List<APPOINTMENT> apps=new List<APPOINTMENT>();
+
+        List<APPOINTMENT> appsbydocs=new List<APPOINTMENT>();
+
+
         // GET api/<controller>
         public List<APPOINTMENT> Get()
         {
@@ -23,19 +27,18 @@ namespace HMSWebAPI.Controllers
       
 
         // GET api/<controller>/5
-        public APPOINTMENT Get(string id)   
+        public List<APPOINTMENT> Get(string id)   
         {
             apps = dBHelper.GetAppointnments();
             foreach (APPOINTMENT a in apps)
             {
-                if (a.AppointmentID == id)
-                { 
-                    return a;
+                if (a.DoctorID == id)
+                {
+                    appsbydocs.Add(a);
                 }
-
             }
             
-            return null;
+            return appsbydocs;
 
         }
 

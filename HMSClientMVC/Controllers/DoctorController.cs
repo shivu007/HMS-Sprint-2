@@ -19,7 +19,145 @@ namespace HMSClientMVC.Controllers
         public ActionResult Index()
         {
             return View();
-        } 
+        }
+
+        //---------------------------------------------IN Patient---------------------------------------
+        public ActionResult InPatient()
+        {
+            return View();
+        }
+
+
+        public ActionResult Test()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> Test(Test test)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string testobj = JsonConvert.SerializeObject(test);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var appcontent = new StringContent(testobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/TestAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+                        
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+           
+ 
+        public async Task<ActionResult> LoadAppointments()
+        {
+            string doctorname=TempData["lUsername"].ToString();
+            List<APPOINTMENT> apps = new List<APPOINTMENT>();
+            List<DOCTOR> docs = new List<DOCTOR>();
+            string DID=null;
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
+                if (httpdoc.IsSuccessStatusCode)
+                {
+                    var response = httpdoc.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+                }
+                foreach(DOCTOR d in docs)
+                {
+                    if (d.Username == doctorname)
+                    {
+                        DID = d.DID;
+                    }
+                    else
+                    {
+                        RedirectToAction("UserLogin", "LoginError");
+                    }
+                }
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/"+ DID);
+                if (httpmsg.IsSuccessStatusCode)
+                {
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    apps = JsonConvert.DeserializeObject<List<APPOINTMENT>>(response);
+                }
+
+            }
+
+
+            string html = "<table border = 2 >";
+            html += "<tr><th>Patient ID</th><th>Appointment ID</th><th>AppointmentDate</th><th>Doctor ID</th></tr>";
+            foreach (APPOINTMENT a in apps)
+            {
+                html += "<tr><td>" + a.PID + "</td>";
+                html += "<td>" + a.AppointmentID + "</td>";
+                html += "<td>" + a.AppointmentDate + "</td>";
+                html += "<td>" + a.DoctorID + "</td>";
+            }
+            html += "</html>";
+
+            return new ContentResult() { Content = html, ContentType = "text/html" };
+        }
+
+        public ActionResult IBill()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> IBill(IBILL iBILL)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string ibillobj = JsonConvert.SerializeObject(iBILL);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/IBillAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+
+
+
+        //---------------------------------------------IN Patient---------------------------------------
+        public ActionResult OutPatient()
+        {
+            return View();
+        }
         public ActionResult Dashboard()
         {
             return View();

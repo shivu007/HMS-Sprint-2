@@ -4,15 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using DataLayer;
 namespace HMSWebAPI.Controllers
 {
     public class TestAPIController : ApiController
     {
+        DbHelper dbHelper=new DbHelper();
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public List<Test> Get()
         {
-            return new string[] { "value1", "value2" };
+            return dbHelper.GetTests();
         }
 
         // GET api/<controller>/5
@@ -22,8 +23,14 @@ namespace HMSWebAPI.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody] string value)
+        public HttpResponseMessage Post(Test test)
         {
+            if (test != null)
+            {
+                dbHelper.AddTest(test);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         // PUT api/<controller>/5
