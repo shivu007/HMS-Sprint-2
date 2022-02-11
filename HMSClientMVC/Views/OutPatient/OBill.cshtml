@@ -1,0 +1,69 @@
+﻿@model IEnumerable<HMSClientMVC.Models.OBILL>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BillNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineFees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationCharges)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabFees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorFees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ADMISSIONID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicineFees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationCharges)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabFees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorFees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADMISSIONID)
+        </td>
+        
+    </tr>
+}
+
+</table>

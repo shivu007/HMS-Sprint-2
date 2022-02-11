@@ -138,6 +138,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> IViewReport()
         {
+            List<Test> test = new List<Test>();
             uname = TempData["lUsername"].ToString();
             if (ModelState.IsValid)
             {
@@ -158,38 +159,24 @@ namespace HMSClientMVC.Controllers
                             }
                         }
 
-                        string apid = "";
+                        
                         HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
                             test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
-                            string html1 = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-                            html1 += "  <table> ";
-                            html1 += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th></tr>";
-
+                           
                             foreach (Test t in test)
 
                             {
                                 if (t.PID == uid)
                                 {
-                                    apid = t.LabID;
 
-                                    html1 += "<tr><td>" + t.LabID + "</td>";
-                                    html1 += "<td>" + t.PID + "</td>";
-                                    html1 += "<td>" + t.TestType + "</td>";
-                                    html1 += "<td>" + t.TestDate + "</td>";
-                                    html1 += "<td>" + t.Remark + "</td>";
-
-
-
-
-                                    html1 += "</html>";
-
-                                    //return new ContentResult() { Content = html1, ContentType = "text/html" };
-                                    return View();
+                                    
+                                    test.Add(t);
 
                                 }
+                                return View(test);
                             }
                         }
                     }
