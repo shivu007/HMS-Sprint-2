@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+
 }
 
 <h2>InPatient</h2>
@@ -14,24 +15,30 @@
     </button>
 
 
-    <button name="SAppoinment">
-        @Ajax.ActionLink("Report", "ViewReport", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
+    <button id="View">
+        @Ajax.ActionLink("Report", "IViewReport", new AjaxOptions
+   {
+
+       HttpMethod = "Get",
+       UpdateTargetId = "Display",
+       InsertionMode = InsertionMode.Replace
+
+
+        })
 
     </button>
 
 
-    <button name="SAppoinment">
-        @Ajax.ActionLink("Bill", "ViewBill", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
+    <button id="Bill">
+        @Ajax.ActionLink("Bill", "IBill", "InPatient", new AjaxOptions
+     {
+            LoadingElementId = "div_loading",
+
+            HttpMethod = "Get",
+
+            UpdateTargetId = "Display",
+            InsertionMode = InsertionMode.Replace
+        })
 
     </button>
 
@@ -40,13 +47,16 @@
 
 
 <div id="Display">
-
+    
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
 
+
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 }
+

@@ -19,7 +19,6 @@ namespace DataLayer
         public string TestType { get; set; }
         public Nullable<System.DateTime> TestDate { get; set; }
         public string Remark { get; set; }
-        public string DoctorName { get; set; }
     
         public virtual PATIENT PATIENT { get; set; }
     }

@@ -15,7 +15,7 @@
 
 
     <button name="SAppoinment">
-        @Ajax.ActionLink("Report", "ViewReport", new AjaxOptions
+        @Ajax.ActionLink("Report", "OViewReport", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "Display",
@@ -26,7 +26,7 @@
 
 
     <button name="SAppoinment">
-        @Ajax.ActionLink("Bill", "ViewBill", new AjaxOptions
+        @Ajax.ActionLink("Bill", "OBill", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "Display",
@@ -45,8 +45,8 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-
+<link href="~/Content/Style.css" rel="stylesheet" />
+   
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 }

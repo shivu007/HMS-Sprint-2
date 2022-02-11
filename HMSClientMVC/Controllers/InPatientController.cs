@@ -10,10 +10,17 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HMSClientMVC.Controllers
 {
     public class InPatientController : Controller
     {
+        List<IBILL> ibill = new List<IBILL>();
+        List<Test> test = new List<Test>();
+        List<PATIENT> patients = new List<PATIENT>();
+        List<APPOINTMENT> app = new List<APPOINTMENT>();
+        string uid;
+        string uname;
         static string baseURL = "https://localhost:44309";
         // GET: InPatient
         public ActionResult Index()
@@ -21,11 +28,7 @@ namespace HMSClientMVC.Controllers
             return View();
         }
 
-        // GET: InPatient/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+
 
         // GET: InPatient/Create
         public ActionResult Create()
@@ -37,7 +40,7 @@ namespace HMSClientMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(APPOINTMENT appointment)
         {
-            
+
             try
             {
                 // TODO: Add insert logic here
@@ -62,51 +65,125 @@ namespace HMSClientMVC.Controllers
             {
                 return View();
             }
+        
             return View();
         }
 
-        // GET: InPatient/Edit/5
-        public ActionResult Edit(int id)
+
+        public async Task<ActionResult> IBill()
         {
+            uname = TempData["lUsername"].ToString();
+            List<IBILL> bills = new List<IBILL>();
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(baseURL);
+                    HttpResponseMessage httpmsg = await client.GetAsync("/api/IBillAPI/");
+
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+                        var response = httpmsg.Content.ReadAsStringAsync().Result;
+                        ibill = JsonConvert.DeserializeObject<List<IBILL>>(response);
+
+
+
+
+                        HttpResponseMessage httppat = await client.GetAsync("/api/PatientAPI/");
+                        if (httppat.IsSuccessStatusCode)
+                        {
+                            var responseap = httppat.Content.ReadAsStringAsync().Result;
+                            patients = JsonConvert.DeserializeObject<List<PATIENT>>(responseap);
+                            foreach (PATIENT p in patients)
+                            {
+                                if (p.Username == uname)
+                                {
+                                    uid = p.PID;
+                                }
+                            }
+
+                            string apid = "";
+                            HttpResponseMessage httpapp = await client.GetAsync("/api/AppointmentAPI/");
+                            if (httpapp.IsSuccessStatusCode)
+                            {
+                                var responseapp = httpapp.Content.ReadAsStringAsync().Result;
+                                app = JsonConvert.DeserializeObject<List<APPOINTMENT>>(responseapp);
+
+                                foreach (APPOINTMENT a in app)
+                                {
+                                    if (a.PID == uid)
+                                    {
+                                        apid = a.AppointmentID;
+                                    }
+                                }
+                                foreach (IBILL i in ibill)
+                                {
+                                    if (i.APPOINTMENTID == apid)
+                                    {
+                                        bills.Add(i);
+                                    }
+                                }
+                                
+
+                                return View(bills);
+                            }
+                        }
+
+                    }
+                }
+            }
+            return View();
+           
+        }
+
+        public async Task<ActionResult> IViewReport()
+        {
+            List<Test> test = new List<Test>();
+            uname = TempData["lUsername"].ToString();
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(baseURL);
+
+                    HttpResponseMessage httppat = await client.GetAsync("/api/PatientAPI/");
+                    if (httppat.IsSuccessStatusCode)
+                    {
+                        var responseap = httppat.Content.ReadAsStringAsync().Result;
+                        patients = JsonConvert.DeserializeObject<List<PATIENT>>(responseap);
+                        foreach (PATIENT p in patients)
+                        {
+                            if (p.Username == uname)
+                            {
+                                uid = p.PID;
+                            }
+                        }
+
+                        
+                        HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
+                        if (httptest.IsSuccessStatusCode)
+                        {
+                            var responseapp = httptest.Content.ReadAsStringAsync().Result;
+                            test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
+                           
+                            foreach (Test t in test)
+
+                            {
+                                if (t.PID == uid)
+                                {
+
+                                    
+                                    test.Add(t);
+
+                                }
+                                return View(test);
+                            }
+                        }
+                    }
+                }
+            }
             return View();
         }
 
-        // POST: InPatient/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: InPatient/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: InPatient/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

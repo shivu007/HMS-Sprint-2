@@ -1,0 +1,51 @@
+﻿@model IEnumerable<HMSClientMVC.Models.Test>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LabID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorName)
+        </td>
+   
+    </tr>
+}
+
+</table>

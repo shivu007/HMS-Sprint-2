@@ -146,6 +146,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.minty.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -200,9 +202,13 @@
     <Content Include="Views\Doctor\IBill.cshtml" />
     <Content Include="Views\Doctor\AdmitPatient.cshtml" />
     <Content Include="Views\Doctor\OBill.cshtml" />
+    <Content Include="Views\InPatient\IBill.cshtml" />
+    <Content Include="Views\OutPatient\OBill.cshtml" />
+    <Content Include="Views\OutPatient\OViewReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
