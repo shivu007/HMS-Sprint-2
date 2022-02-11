@@ -7,7 +7,19 @@
 
 <div>
     <button name="SAppoinment">
-        @Ajax.ActionLink("Admit Patient", "ViewReport", new AjaxOptions
+        @Ajax.ActionLink("Admit Patient", "AdmitPatient", new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Display",
+        HttpMethod = "Get"
+    })
+
+    </button>
+    @{
+        TempData["InPat"] = "Out";
+    }
+    <button name="SAppoinment">
+        @Ajax.ActionLink("Create Test", "Test", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "Display",
@@ -16,16 +28,7 @@
 
     </button>
     <button name="SAppoinment">
-        @Ajax.ActionLink("Create Test", "ViewReport", new AjaxOptions
-    {
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "Display",
-        HttpMethod = "Get"
-    })
-
-    </button>
-    <button name="SAppoinment">
-        @Ajax.ActionLink("Bill", "ViewReport", new AjaxOptions
+        @Ajax.ActionLink("Bill", "OBill", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "Display",

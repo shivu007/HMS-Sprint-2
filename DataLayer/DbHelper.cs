@@ -44,16 +44,6 @@ namespace DataLayer
            
         }
 
-        //public PATIENT GetPATIENTs(string id)
-        //{
-        //    var pid = context.PATIENTs.FirstOrDefault(i => i.PID == id);
-        //    if (pid != null)
-        //    { 
-        //        return pid;
-        //    }
-        //    return null;
-        //}
-
         public bool AddPatient(PATIENT patient)
         {
             ipid = GeTLASTGENID();
@@ -61,6 +51,7 @@ namespace DataLayer
             patient.PID = spid;
             try
             {
+
                 context.PATIENTs.Add(patient);
                 context.SaveChanges();
                 return true;
@@ -109,15 +100,49 @@ namespace DataLayer
             return context.Users.ToList();
         }
         /*---------------------------------------------------------Appointment-----------------------------------------------------------*/
+
+        int iaid;
+        string said;
+
         public List<APPOINTMENT> GetAppointnments()
         {
+            iaid = GeTLASTGENAID();
             return context.APPOINTMENTs.ToList();
+        }
+
+
+        public int GeTLASTGENAID()
+        {
+            ObjectParameter returnId = new ObjectParameter("appid", typeof(int));
+
+            var value = context.last_generated_Appoinmentid(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgenaid()
+        {
+
+            iaid++;
+            if (iaid < 10)
+                said = "A00" + iaid;
+            else if (iaid < 100)
+                said = "A0" + iaid;
+            else
+                said = "A" + iaid;
+            return said;
+
+
         }
 
         public bool AddAppointment(APPOINTMENT appointment)
         {
+
+            iaid = GeTLASTGENAID();
+            said = lastgenaid();
+            appointment.AppointmentID = said;
             try
             {
+
                 context.APPOINTMENTs.Add(appointment);
                 context.SaveChanges();
                 return true;
@@ -135,13 +160,43 @@ namespace DataLayer
         }
 
         /*---------------------------------------------------------Doctor-----------------------------------------------------------*/
+
+        int idid;
+        string sdid;
         public List<DOCTOR> GetDoctors()
         {
+
+            idid = GeTLASTGENDID();
             return context.DOCTORs.ToList();
         }
 
+        public int GeTLASTGENDID()
+        {
+            ObjectParameter returnId = new ObjectParameter("Did", typeof(int));
+
+            var value = context.last_generated_Doctorid(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgendid()
+        {
+
+            idid++;
+            if (idid < 10)
+                sdid = "D00" + idid;
+            else if (iaid < 100)
+                sdid = "D0" + idid;
+            else
+                sdid = "D" + idid;
+            return sdid;
+
+
+        }
         public bool AddDoctor(DOCTOR doctor)
         {
+            idid = GeTLASTGENDID();
+            sdid = lastgendid();
+            doctor.DID = sdid;
             try
             {
                 context.DOCTORs.Add(doctor);
@@ -157,13 +212,41 @@ namespace DataLayer
         }
 
         /*---------------------------------------------------------Test-----------------------------------------------------------*/
+        int itid;
+        string stid;
         public List<Test> GetTests()
         {
+            itid = GeTLASTGENTID();
             return context.Tests.ToList();
         }
 
+        public int GeTLASTGENTID()
+        {
+            ObjectParameter returnId = new ObjectParameter("Labid", typeof(int));
+
+            var value = context.last_generated_Labid(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgentid()
+        {
+
+            itid++;
+            if (itid < 10)
+                stid = "L00" + itid;
+            else if (itid < 100)
+                stid = "L0" + itid;
+            else
+                stid = "L" + itid;
+            return stid;
+
+
+        }
         public bool AddTest(Test test)
         {
+            itid = GeTLASTGENTID();
+            stid = lastgentid();
+            test.LabID = stid;
             try
             {
                 context.Tests.Add(test);
@@ -178,13 +261,40 @@ namespace DataLayer
 
         }
         /*---------------------------------------------------------OBILL-----------------------------------------------------------*/
+        int iOBid;
+        string sOBid;
         public List<OBILL> GetOBILLs()
         {
+            iOBid = GeTLASTGENOBID();
             return context.OBILLs.ToList();
         }
+        public int GeTLASTGENOBID()
+        {
+            ObjectParameter returnId = new ObjectParameter("billOUTid", typeof(int));
 
+            var value = context.last_generated_OUTBillid(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgenobid()
+        {
+
+            iOBid++;
+            if (iOBid < 10)
+                sOBid = "BO00" + iOBid;
+            else if (iOBid < 100)
+                sOBid = "BO0" + iOBid;
+            else
+                sOBid = "BO" + iOBid;
+            return sOBid;
+
+
+        }
         public bool AddOBILL(OBILL oBILL)
         {
+            iOBid = GeTLASTGENOBID();
+            sOBid = lastgenobid();
+            oBILL.BillNo = sOBid;
             try
             {
                 context.OBILLs.Add(oBILL);
@@ -199,13 +309,40 @@ namespace DataLayer
 
         }
         /*---------------------------------------------------------IBILL-----------------------------------------------------------*/
+        int iIBid;
+        string sIBid;
         public List<IBILL> GetIBILLs()
         {
+            iIBid = GeTLASTGENIBID();
             return context.IBILLs.ToList();
         }
+        public int GeTLASTGENIBID()
+        {
+            ObjectParameter returnId = new ObjectParameter("billINid", typeof(int));
 
+            var value = context.last_generated_INBillid(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgenibid()
+        {
+
+            iIBid++;
+            if (iIBid < 10)
+                sIBid = "BI00" + iIBid;
+            else if (iIBid < 100)
+                sIBid = "BI0" + iIBid;
+            else
+                sIBid = "BI" + iIBid;
+            return sIBid;
+
+
+        }
         public bool AddIBILL(IBILL iBILL)
         {
+            iIBid = GeTLASTGENIBID();
+            sIBid = lastgenibid();
+            iBILL.BillNo = sIBid;
             try
             {
                 context.IBILLs.Add(iBILL);
@@ -220,13 +357,41 @@ namespace DataLayer
 
         }
         /*---------------------------------------------------------OutPatient-----------------------------------------------------------*/
+        int iopid;
+        string sopid;
         public List<OPATIENT> GetOPATIENT()
         {
+            iopid = GeTLASTGENOPID();
             return context.OPATIENTs.ToList();
+        }
+        public int GeTLASTGENOPID()
+        {
+            ObjectParameter returnId = new ObjectParameter("OPid", typeof(int));
+
+            var value = context.last_generated_OpatientId(returnId);
+            int id = Convert.ToInt32(returnId.Value);
+            return id;
+        }
+        public string lastgenopid()
+        {
+
+            iopid++;
+            if (iopid < 10)
+                sopid = "A00" + iopid;
+            else if (iopid < 100)
+                sopid = "A0" + iopid;
+            else
+                sopid = "A" + iopid;
+            return sopid;
+
+
         }
 
         public bool AddOPATIENT(OPATIENT oPATIENT)
         {
+            iopid = GeTLASTGENOPID();
+            sopid = lastgenopid();
+            oPATIENT.ADMISSIONID = sopid;
             try
             {
                 context.OPATIENTs.Add(oPATIENT);

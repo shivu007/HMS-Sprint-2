@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,15 +11,27 @@ namespace HMSWebAPI.Controllers
     public class OBillAPIController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        DbHelper dbHelper = new DbHelper();
+        // GET api/<controller>
+        public List<OBILL> Get()
         {
-            return new string[] { "value1", "value2" };
+            return dbHelper.GetOBILLs();
         }
 
         // GET api/<controller>/5
         public string Get(int id)
         {
             return "value";
+        }
+
+        public HttpResponseMessage Post(OBILL oBILL)
+        {
+            if (oBILL != null)
+            {
+                dbHelper.AddOBILL(oBILL);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         // POST api/<controller>

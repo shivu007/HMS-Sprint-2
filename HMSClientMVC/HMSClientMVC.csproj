@@ -165,6 +165,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MyScript.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -184,9 +185,6 @@
     <Content Include="Views\UserLogin\OutPatient.cshtml" />
     <Content Include="Views\UserLogin\Doctor.cshtml" />
     <Content Include="Views\UserLogin\LoginError.cshtml" />
-    <Content Include="Views\Appointment\Details.cshtml" />
-    <Content Include="Views\Appointment\Index.cshtml" />
-    <Content Include="Views\Appointment\Create.cshtml" />
     <Content Include="Views\InPatient\Index.cshtml" />
     <Content Include="Views\InPatient\Create.cshtml" />
     <Content Include="Views\Appointment\IPatientRegister.cshtml" />
@@ -197,10 +195,11 @@
     <Content Include="Views\Doctor\Dashboard.cshtml" />
     <Content Include="Views\Doctor\InPatient.cshtml" />
     <Content Include="Views\Doctor\OutPatient.cshtml" />
-    <Content Include="Views\Doctor\LoadAppointments.cshtml" />
     <Content Include="Views\Doctor\Test.cshtml" />
     <Content Include="Views\Doctor\Success.cshtml" />
     <Content Include="Views\Doctor\IBill.cshtml" />
+    <Content Include="Views\Doctor\AdmitPatient.cshtml" />
+    <Content Include="Views\Doctor\OBill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

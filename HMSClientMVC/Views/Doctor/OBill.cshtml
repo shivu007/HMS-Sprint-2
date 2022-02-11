@@ -1,17 +1,17 @@
-﻿@model HMSClientMVC.Models.IBILL
+﻿@model HMSClientMVC.Models.OBILL
 
 @{
-    ViewBag.Title = "IBill";
+    ViewBag.Title = "OBill";
 }
 
-<h2>IBill</h2>
+<h2>OBill</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>IBILL</h4>
+        <h4>OBILL</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -21,6 +21,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MedicineFees, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MedicineFees, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoomCharges, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RoomCharges, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RoomCharges, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -49,6 +57,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.TotalDays, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalDays, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TotalDays, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -57,15 +73,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.APPOINTMENTID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ADMISSIONID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(Model => Model.APPOINTMENTID, new SelectList(ViewBag.appointment as System.Collections.IEnumerable, "APPOINTMENTID", "APPOINTMENTID"),
+                @Html.DropDownListFor(Model => Model.ADMISSIONID, new SelectList(ViewBag.admission as System.Collections.IEnumerable, "ADMISSIONID", "ADMISSIONID"),
 
-              "Select a APPOINTMENT ID", new { id = "APPOINTMENTID" })
+               "Select a Admisson ID", new { id = "ADMISSIONID" })
 
-
-                @Html.EditorFor(model => model.APPOINTMENTID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.APPOINTMENTID, "", new { @class = "text-danger" })
+                
+                @Html.ValidationMessageFor(model => model.ADMISSIONID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -80,7 +95,6 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 

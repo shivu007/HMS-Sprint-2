@@ -15,26 +15,65 @@ namespace HMSClientMVC.Controllers
     public class DoctorController : Controller
     {
         static string baseURL = "https://localhost:44309";
-        // GET: Doctor
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        List<PATIENT> patients = new List<PATIENT>();
+        string check;
+        List<PATIENT> InP = new List<PATIENT>();
+        List<PATIENT> OnP = new List<PATIENT>();
+        List<DOCTOR> docs = new List<DOCTOR>();
+        List<APPOINTMENT> ap = new List<APPOINTMENT>();
+        List<OPATIENT> ad = new List<OPATIENT>();
+        string DID = null;
+      
+      
         //---------------------------------------------IN Patient---------------------------------------
         public ActionResult InPatient()
-        {
-            return View();
+        {    
+          return View();
         }
 
 
-        public ActionResult Test()
+        public async Task<ActionResult> Test()
         {
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                    foreach (PATIENT p in patients)
+                    {
+                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
+                            InP.Add(p);
+                        else
+                            OnP.Add(p);
+
+                    }
+                    check = TempData["InPat"].ToString();
+                    if (check == "Inn")
+                        ViewBag.categories = InP;
+
+                    else if (check == "Out")
+                        ViewBag.categories = OnP;
+
+                }
+            }
+            
+        
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> Test(Test test)
         {
+           
+            if (check == "Inn")
+                ViewBag.categories = InP;
+
+            else if (check == "Out")
+                ViewBag.categories = OnP;
+        
             try
             {
                 // TODO: Add insert logic here
@@ -68,29 +107,14 @@ namespace HMSClientMVC.Controllers
         public async Task<ActionResult> LoadAppointments()
         {
             string doctorname=TempData["lUsername"].ToString();
+            
             List<APPOINTMENT> apps = new List<APPOINTMENT>();
-            List<DOCTOR> docs = new List<DOCTOR>();
-            string DID=null;
+           
+            
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseURL);
-                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
-                if (httpdoc.IsSuccessStatusCode)
-                {
-                    var response = httpdoc.Content.ReadAsStringAsync().Result;
-                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
-                }
-                foreach(DOCTOR d in docs)
-                {
-                    if (d.Username == doctorname)
-                    {
-                        DID = d.DID;
-                    }
-                    else
-                    {
-                        RedirectToAction("UserLogin", "LoginError");
-                    }
-                }
+                
                 HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/"+ DID);
                 if (httpmsg.IsSuccessStatusCode)
                 {
@@ -115,13 +139,37 @@ namespace HMSClientMVC.Controllers
             return new ContentResult() { Content = html, ContentType = "text/html" };
         }
 
-        public ActionResult IBill()
+        public async Task<ActionResult> IBill()
         {
+
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(baseURL);
+
+
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/OutPatientAPI/");
+                if (httpmsg.IsSuccessStatusCode)
+                {
+
+
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    ad = JsonConvert.DeserializeObject<List<OPATIENT>>(response);
+                    ViewBag.appointment = ad;
+
+
+
+                }
+
+            }
+            
             return View();
         }
         [HttpPost]
         public async Task<ActionResult> IBill(IBILL iBILL)
         {
+            ViewBag.appointment = ad;
             try
             {
                 // TODO: Add insert logic here
@@ -153,15 +201,32 @@ namespace HMSClientMVC.Controllers
 
 
 
-        //---------------------------------------------IN Patient---------------------------------------
-        public ActionResult OutPatient()
+        //---------------------------------------------OUT Patient---------------------------------------
+        public async Task<ActionResult> OutPatient()
         {
+            using (HttpClient client = new HttpClient())
+            {
+                string doctorname = TempData["lUsername"].ToString();
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
+                if (httpdoc.IsSuccessStatusCode)
+                {
+                    var response = httpdoc.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+                }
+               
+
+            }
+            
+
+
             return View();
         }
         public ActionResult Dashboard()
         {
             return View();
         }
+        
         public ActionResult RegisterDoctor()
         {
             List<string> depts = new List<string>() { "Cardiologist","Dentist","Dermatologists","Gynaecologist","Neurologists","Radiologists"};
@@ -187,7 +252,7 @@ namespace HMSClientMVC.Controllers
                     HttpResponseMessage httpmsg = await client.PostAsync("/api/DoctorAPI/", doccontent);
                     if (httpmsg.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("", "InPatient", "Index");
+                        return RedirectToAction("Dashboard", "Doctor", "");
                     }
                 }
 
@@ -200,76 +265,161 @@ namespace HMSClientMVC.Controllers
             return View();
            
         }
-        // GET: Doctor/Details/5
-        public ActionResult Details(int id)
+
+        public async Task<ActionResult> AdmitPatient()
         {
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httppatients = await client.GetAsync("/api/PatientAPI");
+                if (httppatients.IsSuccessStatusCode)
+                {
+                    var response = httppatients.Content.ReadAsStringAsync().Result;
+                    patients = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                    foreach (PATIENT p in patients)
+                    {
+                        if (p.PatientType == "In Patient" || p.PatientType == "In patient")
+                            InP.Add(p);
+                        else
+                            OnP.Add(p);
+
+                    }
+                    check = TempData["InPat"].ToString();
+                   
+
+                    
+                    ViewBag.categories = OnP;
+
+                }
+            }
+
             return View();
         }
 
-        // GET: Doctor/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Doctor/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> AdmitPatient(OPATIENT oPATIENT)
         {
+            
+            ViewBag.categories = OnP;
+
+            string doctorname = TempData["lUsername"].ToString();
+            using (HttpClient client = new HttpClient())
+            {
+                
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI");
+                if (httpdoc.IsSuccessStatusCode)
+                {
+                    var response = httpdoc.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+                }
+
+
+            }
+            foreach (DOCTOR d in docs)
+            {
+                if (d.Username == doctorname)
+                {
+                    oPATIENT.DID = d.DID;
+                }
+               
+            }
             try
             {
                 // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string ibillobj = JsonConvert.SerializeObject(oPATIENT);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                return RedirectToAction("Index");
+                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/OutPatientAPI/", appcontent);
+                   
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+
+                }
+
+
             }
             catch
             {
                 return View();
             }
-        }
-
-        // GET: Doctor/Edit/5
-        public ActionResult Edit(int id)
-        {
             return View();
         }
 
-        // POST: Doctor/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> OBill()
         {
+
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(baseURL);
+
+
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/");
+                if (httpmsg.IsSuccessStatusCode)
+                {
+
+
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    ap = JsonConvert.DeserializeObject<List<APPOINTMENT>>(response);
+                    ViewBag.admission = ap;
+
+
+
+                }
+
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> OBill(OBILL oBILL)
+        {
+           
             try
             {
-                // TODO: Add update logic here
+                ViewBag.admission = ap;
+                // TODO: Add insert logic here
+                using (HttpClient client = new HttpClient())
+                {
+                    string ibillobj = JsonConvert.SerializeObject(oBILL);
+                    client.BaseAddress = new Uri(baseURL);
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                return RedirectToAction("Index");
+                    var appcontent = new StringContent(ibillobj, UnicodeEncoding.UTF8, "application/json");
+                    HttpResponseMessage httpmsg = await client.PostAsync("/api/OBillAPI/", appcontent);
+                    if (httpmsg.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Dashboard", "Doctor", "");
+
+                    }
+                }
+
+
             }
             catch
             {
                 return View();
             }
-        }
-
-        // GET: Doctor/Delete/5
-        public ActionResult Delete(int id)
-        {
             return View();
         }
 
-        // POST: Doctor/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
+
+      
+
     }
 }
