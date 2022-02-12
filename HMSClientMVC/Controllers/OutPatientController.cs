@@ -109,6 +109,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> OBill()
         {
+            List<OBILL> obill = new List<OBILL>();
             uname = TempData["lUsername"].ToString();
 
             using (HttpClient client = new HttpClient())
@@ -151,33 +152,15 @@ namespace HMSClientMVC.Controllers
                                 }
                             }
 
-                            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-                            html += "  <table> ";
-
-
-                            html += "<tr><th>Bill No.</th><th>Admission ID</th><th>Medicine Fees</th><th>Room Charges</th><th>Operation Charges</th><th>Lab Fees</th><th>Doctor Fees</th><th>Total Days</th><th>Total Amount</th></tr>";
-
                             foreach (OBILL i in obill)
                             {
                                 if (i.ADMISSIONID == apid)
                                 {
 
+                                    obill.Add(i);
 
-
-                                    html += "<tr><td>" + i.BillNo + "</td>";
-                                    html += "<td>" + i.ADMISSIONID + "</td>";
-                                    html += "<td>" + i.MedicineFees + "</td>";
-                                    html += "<td>" + i.RoomCharges + "</td>";
-                                    html += "<td>" + i.OperationCharges + "</td>";
-                                    html += "<td>" + i.LabFees + "</td>";
-                                    html += "<td>" + i.DoctorFees + "</td>";
-                                    html += "<td>" + i.TotalDays + "</td>";
-                                    html += "<td>" + i.TotalAmount + "</td>";
-
-                                    html += "</html>";
-
-                                    return new ContentResult() { Content = html, ContentType = "text/html" };
                                 }
+                                return View(obill);
                             }
                         }
                     }
@@ -192,6 +175,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> OViewReport()
         {
+            List<Test> tests = new List<Test>();
             uname = TempData["lUsername"].ToString();
 
             using (HttpClient client = new HttpClient())
@@ -211,32 +195,23 @@ namespace HMSClientMVC.Controllers
                             }
                         }
 
-                        string apid = "";
+                        
                         HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
                             test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
-                            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-                            html += "  <table> ";
-                            html += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th></tr>";
-
+                            
                             foreach (Test t in test)
                             {
                                 if (t.PID == uid)
                                 {
-                                    apid = t.LabID;
-                                    
-                                    html += "<tr><td>" + t.LabID + "</td>";
-                                    html += "<td>" + t.PID + "</td>";
-                                    html += "<td>" + t.TestType + "</td>";
-                                    html += "<td>" + t.TestDate + "</td>";
-                                    html += "<td>" + t.Remark + "</td>";
-                                    html += "</html>";
                                   
-                                    return new ContentResult() { Content = html, ContentType = "text/html" };
+                                    tests.Add(t);
+
                                 }
                             }
+                            return View(tests);
                         }
                     }
             }

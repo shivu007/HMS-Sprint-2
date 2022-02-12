@@ -72,6 +72,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> IBill()
         {
+            List<IBILL> ibill = new List<IBILL>();
             uname = TempData["lUsername"].ToString();
 
             if (ModelState.IsValid)
@@ -117,33 +118,21 @@ namespace HMSClientMVC.Controllers
                                     }
                                 }
 
-                                string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-                                html += "  <table> ";
-
-
-                                html += "<tr><th>Bill No.</th><th>Appointment ID</th><th>Medicine Fees</th><th>Operation Charges</th><th>Lab Fees</th><th>Doctor Fees</th><th>Total Amount</th></tr>";
-
+                               
                                 foreach (IBILL i in ibill)
                                 {
                                     if (i.APPOINTMENTID == apid)
                                     {
 
+                                        ibill.Add(i);
 
-
-                                        html += "<tr><td>" + i.BillNo + "</td>";
-                                        html += "<td>" + i.APPOINTMENTID + "</td>";
-                                        html += "<td>" + i.MedicineFees + "</td>";
-                                        html += "<td>" + i.OperationCharges + "</td>";
-                                        html += "<td>" + i.LabFees + "</td>";
-                                        html += "<td>" + i.DoctorFees + "</td>";
-                                        html += "<td>" + i.TotalAmount + "</td>";
 
 
                                     }
+                                    return View(ibill);
                                 }
-                                html += "</html>";
-                                ModelState.Clear();
-                                return new ContentResult() { Content = html, ContentType = "text/html" };
+                                
+                              
                             }
                         }
 
@@ -156,6 +145,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> IViewReport()
         {
+            List<Test> tests = new List<Test>();
             uname = TempData["lUsername"].ToString();
             if (ModelState.IsValid)
             {
@@ -176,36 +166,22 @@ namespace HMSClientMVC.Controllers
                             }
                         }
 
-                        string apid = "";
+                      
                         HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
                             test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
-                            string html1 = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-                            html1 += "  <table> ";
-                            html1 += "<tr><th>Lab ID</th><th>Patient ID</th><th>Test Type</th><th>Test Date</th><th>Remark</th></tr>";
-
+                            
                             foreach (Test t in test)
                             {
                                 if (t.PID == uid)
                                 {
-                                    apid = t.LabID;
 
-                                    html1 += "<tr><td>" + t.LabID + "</td>";
-                                    html1 += "<td>" + t.PID + "</td>";
-                                    html1 += "<td>" + t.TestType + "</td>";
-                                    html1 += "<td>" + t.TestDate + "</td>";
-                                    html1 += "<td>" + t.Remark + "</td>";
-
-
-
-
-                                    html1 += "</html>";
-                                  
-                                    return new ContentResult() { Content = html1, ContentType = "text/html" };
+                                    tests.Add(t);
                                 }
                             }
+                            return View(tests);
                         }
                     }
                 }
