@@ -115,24 +115,22 @@ namespace HMSClientMVC.Controllers
                                     if (a.PID == uid)
                                     {
                                         apid = a.AppointmentID;
+                                        foreach (IBILL i in ibill)
+                                        {
+                                            
+                                            if (i.APPOINTMENTID == apid)
+                                            {
+                                                ibills.Add(i);
+                                            }
+                                           
+                                        }
                                     }
                                 }
 
-                               
-                                foreach (IBILL i in ibill)
-                                {
-                                    if (i.APPOINTMENTID == apid)
-                                    {
 
-                                        ibills.Add(i);
+                                return View(ibills);
 
 
-
-                                    }
-                                    return View(ibills);
-                                }
-                                
-                              
                             }
                         }
 

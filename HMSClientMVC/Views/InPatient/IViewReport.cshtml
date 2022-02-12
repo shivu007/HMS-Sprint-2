@@ -18,30 +18,37 @@
         <th>
             @Html.DisplayNameFor(model => model.Remark)
         </th>
-       
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LabID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remark)
-        </td>
-        
-      
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LabID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+
+
+        </tr>
+    }
 
 </table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/Style.css" rel="stylesheet" />
+
+
+}
