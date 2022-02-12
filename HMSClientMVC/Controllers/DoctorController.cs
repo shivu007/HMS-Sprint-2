@@ -110,17 +110,24 @@ namespace HMSClientMVC.Controllers
             string doctorname=TempData["lUsername"].ToString();
             
             List<APPOINTMENT> apps = new List<APPOINTMENT>();
+            List<DOCTOR> docs = new List<DOCTOR>();
            
             
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseURL);
                 
-                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/"+ DID);
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/AppointmentAPI/");
                 if (httpmsg.IsSuccessStatusCode)
                 {
                     var response = httpmsg.Content.ReadAsStringAsync().Result;
                     apps = JsonConvert.DeserializeObject<List<APPOINTMENT>>(response);
+                }
+                HttpResponseMessage httpdoc = await client.GetAsync("/api/DoctorAPI/");
+                if (httpdoc.IsSuccessStatusCode)
+                {
+                    var response = httpdoc.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
                 }
 
             }
@@ -128,12 +135,25 @@ namespace HMSClientMVC.Controllers
             string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
             html += "<table>";
             html += "<tr><th>Patient ID</th><th>Appointment ID</th><th>AppointmentDate</th><th>Doctor ID</th></tr>";
-            foreach (APPOINTMENT a in apps)
+            string did = null;
+            foreach (DOCTOR d in docs)
             {
-                html += "<tr><td>" + a.PID + "</td>";
-                html += "<td>" + a.AppointmentID + "</td>";
-                html += "<td>" + a.AppointmentDate + "</td>";
-                html += "<td>" + a.DoctorID + "</td>";
+                if (d.Username == doctorname)
+                {
+                    did = d.DID;
+                    
+                    foreach (APPOINTMENT a in apps)
+                    {
+                        if (a.DoctorID == did)
+                        {
+                            html += "<tr><td>" + a.PID + "</td>";
+                            html += "<td>" + a.AppointmentID + "</td>";
+                            html += "<td>" + a.AppointmentDate + "</td>";
+                            html += "<td>" + a.DoctorID + "</td>";
+                        }
+                    }
+
+                }
             }
             html += "</html>";
 

@@ -72,9 +72,9 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> IBill()
         {
-            List<IBILL> ibill = new List<IBILL>();
+           
             uname = TempData["lUsername"].ToString();
-            List<IBILL> bills = new List<IBILL>();
+            List<IBILL> ibills = new List<IBILL>();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = new HttpClient())
@@ -124,12 +124,12 @@ namespace HMSClientMVC.Controllers
                                     if (i.APPOINTMENTID == apid)
                                     {
 
-                                        ibill.Add(i);
+                                        ibills.Add(i);
 
 
 
                                     }
-                                    return View(ibill);
+                                    return View(ibills);
                                 }
                                 
                               

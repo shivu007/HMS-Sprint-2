@@ -74,8 +74,7 @@ namespace HMSClientMVC.Controllers
         {
             List<string> data1 = new List<string>() { "Male", "Female" };
             ViewBag.categories = data1;
-            if (ModelState.IsValid)
-            {
+            
                
                 patient.Username = TempData["lUsername"].ToString();
                 patient.PatientType = "Out Patient";
@@ -103,13 +102,13 @@ namespace HMSClientMVC.Controllers
                 {
                     return View();
                 }
-            }
+            
             return View();
         }
 
         public async Task<ActionResult> OBill()
         {
-            List<OBILL> obill = new List<OBILL>();
+            List<OBILL> obills = new List<OBILL>();
             uname = TempData["lUsername"].ToString();
 
             using (HttpClient client = new HttpClient())
@@ -157,13 +156,13 @@ namespace HMSClientMVC.Controllers
                                 if (i.ADMISSIONID == apid)
                                 {
 
-                                    obill.Add(i);
+                                    obills.Add(i);
 
                                 }
-                                return View(obill);
+                                return View(obills);
                             }
 
-                            return View(obill);
+                           
                         }
                     }
 
@@ -202,7 +201,7 @@ namespace HMSClientMVC.Controllers
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
-                            test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
+                            tests = JsonConvert.DeserializeObject<List<Test>>(responseapp);
                             
                             foreach (Test t in test)
                             {
@@ -212,9 +211,9 @@ namespace HMSClientMVC.Controllers
                                     tests.Add(t);
 
                                 }
-                                return View(test); 
+                                return View(tests); 
                             }
-                            return View(tests);
+                           
                         }
                     }
             }
