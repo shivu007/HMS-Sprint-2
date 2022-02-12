@@ -74,7 +74,7 @@ namespace HMSClientMVC.Controllers
         {
             List<IBILL> ibill = new List<IBILL>();
             uname = TempData["lUsername"].ToString();
-
+            List<IBILL> bills = new List<IBILL>();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = new HttpClient())
@@ -174,12 +174,14 @@ namespace HMSClientMVC.Controllers
                             test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
                             
                             foreach (Test t in test)
+
                             {
                                 if (t.PID == uid)
                                 {
 
                                     tests.Add(t);
                                 }
+                                return View(test);
                             }
                             return View(tests);
                         }

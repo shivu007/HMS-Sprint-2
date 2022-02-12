@@ -23,8 +23,9 @@ namespace HMSClientMVC.Controllers
         List<APPOINTMENT> ap = new List<APPOINTMENT>();
         List<OPATIENT> ad = new List<OPATIENT>();
         string DID = null;
-      
-      
+
+   
+
         //---------------------------------------------IN Patient---------------------------------------
         public ActionResult InPatient()
         {    
@@ -210,6 +211,8 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> AdmitPatient()
         {
+            List<string> room1 = new List<string>() { "Private Room", "General Room", "Semi Private Room" };
+            ViewBag.rooms = room1;
 
             using (HttpClient client = new HttpClient())
             {
@@ -242,7 +245,8 @@ namespace HMSClientMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> AdmitPatient(OPATIENT oPATIENT)
         {
-            
+            List<string> room1 = new List<string>() { "Private Room", "General Room", "Semi Private Room" };
+            ViewBag.rooms = room1;
             ViewBag.categories = OnP;
 
             string doctorname = TempData["lUsername"].ToString();

@@ -93,7 +93,7 @@ namespace HMSClientMVC.Controllers
                         HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
                         if (httpmsg.IsSuccessStatusCode)
                         {
-                            return RedirectToAction("", "OutPatient", "Index");
+                            return RedirectToAction("", "OutPatient", "");
                         }
                     }
 
@@ -162,6 +162,8 @@ namespace HMSClientMVC.Controllers
                                 }
                                 return View(obill);
                             }
+
+                            return View(obill);
                         }
                     }
 
@@ -210,6 +212,7 @@ namespace HMSClientMVC.Controllers
                                     tests.Add(t);
 
                                 }
+                                return View(test); 
                             }
                             return View(tests);
                         }
