@@ -23,8 +23,9 @@ namespace HMSClientMVC.Controllers
         List<APPOINTMENT> ap = new List<APPOINTMENT>();
         List<OPATIENT> ad = new List<OPATIENT>();
         string DID = null;
-      
-      
+
+   
+
         //---------------------------------------------IN Patient---------------------------------------
         public ActionResult InPatient()
         {    

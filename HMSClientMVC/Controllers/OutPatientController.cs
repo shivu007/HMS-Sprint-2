@@ -93,7 +93,7 @@ namespace HMSClientMVC.Controllers
                         HttpResponseMessage httpmsg = await client.PostAsync("/api/PatientAPI/", appcontent);
                         if (httpmsg.IsSuccessStatusCode)
                         {
-                            return RedirectToAction("", "OutPatient", "Index");
+                            return RedirectToAction("", "OutPatient", "");
                         }
                     }
 
