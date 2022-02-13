@@ -72,8 +72,9 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> IBill()
         {
+           
             uname = TempData["lUsername"].ToString();
-            List<IBILL> bills = new List<IBILL>();
+            List<IBILL> ibills = new List<IBILL>();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = new HttpClient())
@@ -114,18 +115,22 @@ namespace HMSClientMVC.Controllers
                                     if (a.PID == uid)
                                     {
                                         apid = a.AppointmentID;
+                                        foreach (IBILL i in ibill)
+                                        {
+                                            
+                                            if (i.APPOINTMENTID == apid)
+                                            {
+                                                ibills.Add(i);
+                                            }
+                                           
+                                        }
                                     }
                                 }
-                                foreach (IBILL i in ibill)
-                                {
-                                    if (i.APPOINTMENTID == apid)
-                                    {
-                                        bills.Add(i);
-                                    }
-                                }
-                                
 
-                                return View(bills);
+
+                                return View(ibills);
+
+
                             }
                         }
 
@@ -138,7 +143,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> IViewReport()
         {
-            List<Test> test = new List<Test>();
+            List<Test> tests = new List<Test>();
             uname = TempData["lUsername"].ToString();
             if (ModelState.IsValid)
             {
@@ -159,25 +164,24 @@ namespace HMSClientMVC.Controllers
                             }
                         }
 
-                        
+                      
                         HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
                             test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
-                           
+                            
                             foreach (Test t in test)
 
                             {
                                 if (t.PID == uid)
                                 {
 
-                                    
-                                    test.Add(t);
-
+                                    tests.Add(t);
                                 }
                                 return View(test);
                             }
+                            return View(tests);
                         }
                     }
                 }

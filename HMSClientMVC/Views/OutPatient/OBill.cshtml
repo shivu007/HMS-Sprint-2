@@ -33,37 +33,44 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MedicineFees)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoomCharges)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OperationCharges)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LabFees)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DoctorFees)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalDays)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ADMISSIONID)
-        </td>
-        
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicineFees)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomCharges)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationCharges)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LabFees)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorFees)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADMISSIONID)
+            </td>
+
+        </tr>
+    }
 
 </table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/Style.css" rel="stylesheet" />
+
+
+}

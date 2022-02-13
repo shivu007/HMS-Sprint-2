@@ -74,8 +74,7 @@ namespace HMSClientMVC.Controllers
         {
             List<string> data1 = new List<string>() { "Male", "Female" };
             ViewBag.categories = data1;
-            if (ModelState.IsValid)
-            {
+            
                
                 patient.Username = TempData["lUsername"].ToString();
                 patient.PatientType = "Out Patient";
@@ -103,13 +102,13 @@ namespace HMSClientMVC.Controllers
                 {
                     return View();
                 }
-            }
+            
             return View();
         }
 
         public async Task<ActionResult> OBill()
         {
-            List<OBILL> obill = new List<OBILL>();
+            List<OBILL> obills = new List<OBILL>();
             uname = TempData["lUsername"].ToString();
 
             using (HttpClient client = new HttpClient())
@@ -152,21 +151,18 @@ namespace HMSClientMVC.Controllers
                                 }
                             }
 
-                            
                             foreach (OBILL i in obill)
                             {
                                 if (i.ADMISSIONID == apid)
                                 {
 
-                                    obill.Add(i);
+                                    obills.Add(i);
 
-
-
-                                    
                                 }
+                                return View(obills);
                             }
 
-                            return View(obill);
+                           
                         }
                     }
 
@@ -180,7 +176,7 @@ namespace HMSClientMVC.Controllers
 
         public async Task<ActionResult> OViewReport()
         {
-            List<Test> test = new List<Test>();
+            List<Test> tests = new List<Test>();
             uname = TempData["lUsername"].ToString();
 
             using (HttpClient client = new HttpClient())
@@ -200,28 +196,24 @@ namespace HMSClientMVC.Controllers
                             }
                         }
 
-                        string apid = "";
+                        
                         HttpResponseMessage httptest = await client.GetAsync("/api/TestAPI/");
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
-                            test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
+                            tests = JsonConvert.DeserializeObject<List<Test>>(responseapp);
                             
-
                             foreach (Test t in test)
                             {
                                 if (t.PID == uid)
                                 {
-                                   apid = t.LabID;
-
-                                     test.Add(t);
-
-                               
                                   
-                                    
+                                    tests.Add(t);
+
                                 }
-                                return View(test); 
+                                return View(tests); 
                             }
+                           
                         }
                     }
             }
