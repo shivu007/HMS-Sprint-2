@@ -3,18 +3,18 @@
 @{
     ViewBag.Title = "RegisterDoctor";
 }
+<h2 style="text-decoration-color:#000000"><b>RegisterDoctor</b></h2>
 
-<h2>RegisterDoctor</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>DOCTOR</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Dept, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" style="color: white; background-color: #222222" />
             </div>
         </div>
     </div>
