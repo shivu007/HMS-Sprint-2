@@ -3,19 +3,16 @@
     ViewBag.Title = "Index";
 
 }
-
-<h2>InPatient</h2>
+<h2 style="text-decoration-color:#000000"><b>InPatient</b></h2>
 
 <h4>Dashboard</h4>
 <hr>
 
 <div>
-    <button name="SAppoinment">
-        @Html.ActionLink("Schedule Appoinment", "Create", "InPatient")
-    </button>
 
 
-    <button id="View">
+
+    <button id="View" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
         @Ajax.ActionLink("Report", "IViewReport", new AjaxOptions
    {
 
@@ -29,7 +26,7 @@
     </button>
 
 
-    <button id="Bill">
+    <button id="Bill" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
         @Ajax.ActionLink("Bill", "IBill", "InPatient", new AjaxOptions
      {
             LoadingElementId = "div_loading",
@@ -47,7 +44,7 @@
 
 
 <div id="Display">
-    
+
 </div>
 
 

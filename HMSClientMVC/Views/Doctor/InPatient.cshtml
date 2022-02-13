@@ -2,11 +2,11 @@
 @{
     ViewBag.Title = "InPatient";
 }
+<h2 style="text-decoration-color:#000000"><b>InPatient</b></h2>
 
-<h2>InPatient</h2>
 
 <div>
-    <button name="SAppoinment">
+    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 150px; color: white; background-color: #222222">
         @Ajax.ActionLink("Load Appointments", "LoadAppointments", new AjaxOptions
         {
             InsertionMode = InsertionMode.Replace,
@@ -15,9 +15,9 @@
         })
 
     </button>
-    
-    <button name="SAppoinment">
-       
+
+    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
+
 
         @{
             TempData["InPat"] = "Inn";
@@ -30,7 +30,7 @@
         })
 
     </button>
-    <button name="SAppoinment">
+    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
         @Ajax.ActionLink("Bill", "IBill", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
@@ -40,7 +40,7 @@
 
     </button>
 
-    <button name="SAppoinment">
+    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
         @Html.ActionLink("Back", "Dashboard", "Doctor")
 
     </button>

@@ -3,16 +3,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>OutPatient</h2>
+<h2 style="text-decoration-color:#000000"><b>OutPatient</b></h2>
 
 <h4>Dashboard</h4>
 <hr>
-
 <div>
-   
 
 
-    <button name="SAppoinment">
+
+    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
         @Ajax.ActionLink("Report", "OViewReport", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
@@ -23,7 +22,7 @@
     </button>
 
 
-    <button name="SAppoinment">
+    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
         @Ajax.ActionLink("Bill", "OBill", new AjaxOptions
     {
         InsertionMode = InsertionMode.Replace,
@@ -43,8 +42,8 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<link href="~/Content/Style.css" rel="stylesheet" />
-   
+    <link href="~/Content/Style.css" rel="stylesheet" />
+
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 }
