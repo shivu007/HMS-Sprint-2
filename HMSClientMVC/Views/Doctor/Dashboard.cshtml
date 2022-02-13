@@ -2,47 +2,61 @@
 @{
     ViewBag.Title = "Dashboard";
 }
+
+@section head{
+    <style type="text/css">
+
+        .box {
+            margin: 50px;
+            width: 100px;
+            height: 50px;
+            border-radius: 20px;
+            background-color: black;
+            color:White;
+            text-align: center;
+            line-height: 50px;
+          
+        }
+        a.my-class {
+            color: white
+        } 
+        
+    </style>
+}
 <h2 style="text-decoration-color:#000000"><b>Doctor</b></h2>
 
 <h4>Dashboard</h4>
 <hr>
 @if (TempData["alert"] != null)
-{ 
-<div class="alert alert-success">
-    <strong>Test Successfully Created!!!</strong>
-    <button type="button" class="close" data-dismiss="alert">
-        <span>&times;</span>
-    </button>
+{
+    <div class="alert alert-success">
+        <strong>Test Successfully Created!!!</strong>
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
     </div>
 }
 
-<div>
+    <div class="row">
+        <div class="box">
 
-    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222"
->
-        @Html.ActionLink("InPatient", "InPatient", "Doctor")
+            @Html.ActionLink("InPatient", "InPatient", "Doctor", new { @class = "my-class" })
 
-    </button>
-    <button name="SAppoinment" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
-        @Html.ActionLink("OutPatient", "OutPatient", "Doctor")
+        </div>
+        <div class="box">
 
-    </button>
+            @Html.ActionLink("OutPatient", "OutPatient", "Doctor", new { @class = "my-class" })
+        </div>
 
+        </div>
 
-    <div id="Display">
+        <div id="Display">
 
-    </div>
-
-
-</div>
-
-
-
-
+        </div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryval")
 
 
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-}
+    }

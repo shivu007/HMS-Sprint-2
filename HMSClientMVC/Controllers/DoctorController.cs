@@ -201,8 +201,10 @@ namespace HMSClientMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterDoctor(DOCTOR doctor)
         {
+            string Docuname = TempData["lUsername"].ToString();
             List<string> depts = new List<string>() { "Cardiologist","Dentist","Dermatologists","Gynaecologist","Neurologists","Radiologists"};
             ViewBag.categories = depts;
+            doctor.Username = Docuname;
             try
             {
                 // TODO: Add insert logic here

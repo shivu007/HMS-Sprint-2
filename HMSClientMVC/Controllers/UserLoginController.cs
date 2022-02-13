@@ -183,6 +183,7 @@ namespace HMSClientMVC.Controllers
 
                     if (httpmsg.IsSuccessStatusCode)
                     {
+                        TempData["alert"] = "Registered Successfully!!!";
                         return RedirectToAction("Login");
                     }
 
@@ -192,6 +193,7 @@ namespace HMSClientMVC.Controllers
             {
 
             }
+            TempData["alert"] = "Something Went Wrong!!!";
             return View();
         }
 
