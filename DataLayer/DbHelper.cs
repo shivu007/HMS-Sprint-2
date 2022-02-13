@@ -82,7 +82,18 @@ namespace DataLayer
 
         public User ValidateUser(string username, string password)
         {
-            var u = context.Users.FirstOrDefault(us => us.Username == username && us.Pass == password);
+            var use = context.Users.FirstOrDefault(x => x.Username == username);
+            
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8Decode = encoder.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(use.Pass);
+            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string passresult = new String(decoded_char);
+
+            var u = context.Users.FirstOrDefault(us => us.Username == username && passresult == password);
+            
             if (u != null)
             {
                 return u;

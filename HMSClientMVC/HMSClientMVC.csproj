@@ -211,10 +211,10 @@
     <Content Include="Views\OutPatient\OViewReport.cshtml" />
     <Content Include="Views\InPatient\IBill.cshtml" />
     <Content Include="Views\InPatient\IViewReport.cshtml" />
+    <Content Include="Views\Doctor\LoadAppointments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

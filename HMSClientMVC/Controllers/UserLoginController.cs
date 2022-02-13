@@ -37,6 +37,8 @@ namespace HMSClientMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(User user)
         {
+            
+
             List<string> data1 = new List<string>() { "Doctor", "In Patient", "Out Patient" };
             ViewBag.categories = data1;
             using (HttpClient client = new HttpClient())
@@ -53,6 +55,9 @@ namespace HMSClientMVC.Controllers
 
                 authkey.Add(granttype);
                 //temp = user.Username;
+                
+                
+
 
                 var formcontent = new FormUrlEncodedContent(authkey);
                 HttpResponseMessage httpResMsg = await client.PostAsync("/token", formcontent);
@@ -159,6 +164,11 @@ namespace HMSClientMVC.Controllers
             
             try
             {
+                byte[] encData_byte = new byte[user.Pass.Length];
+                encData_byte = System.Text.Encoding.UTF8.GetBytes(user.Pass);
+                string encodedPass = Convert.ToBase64String(encData_byte);
+                user.Pass = encodedPass;
+
                 // TODO: Add insert logic here
                 string loanobj = JsonConvert.SerializeObject(user);
                 using (HttpClient client = new HttpClient())

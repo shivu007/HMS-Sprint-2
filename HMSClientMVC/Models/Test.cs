@@ -8,13 +8,13 @@ namespace HMSClientMVC.Models
 {
     public class Test
     {
-        [Required]
+     
         public string LabID { get; set; }
-        [Required]
+        [Required (ErrorMessage ="Please select PID")]
         public string PID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please select test type")]
         public string TestType { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please select test date")]
         public Nullable<System.DateTime> TestDate { get; set; }
         [Required]
         public string Remark { get; set; }

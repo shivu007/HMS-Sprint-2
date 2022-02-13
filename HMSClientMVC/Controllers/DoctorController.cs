@@ -27,6 +27,7 @@ namespace HMSClientMVC.Controllers
    
 
         //---------------------------------------------IN Patient---------------------------------------
+       
         public ActionResult InPatient()
         {    
           return View();
@@ -68,45 +69,52 @@ namespace HMSClientMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Test(Test test)
         {
-           
-            if (check == "Inn")
+               if (check == "Inn")
                 ViewBag.categories = InP;
 
             else if (check == "Out")
                 ViewBag.categories = OnP;
-        
-            try
-            {
-                // TODO: Add insert logic here
-                using (HttpClient client = new HttpClient())
-                {
-                    string testobj = JsonConvert.SerializeObject(test);
-                    client.BaseAddress = new Uri(baseURL);
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+                
 
-                    var appcontent = new StringContent(testobj, UnicodeEncoding.UTF8, "application/json");
-                    HttpResponseMessage httpmsg = await client.PostAsync("/api/TestAPI/", appcontent);
-                    if (httpmsg.IsSuccessStatusCode)
+                    try
                     {
-                        
-                        return RedirectToAction("Dashboard", "Doctor", "");
+                        // TODO: Add insert logic here
+                        using (HttpClient client = new HttpClient())
+                        {
+                            string testobj = JsonConvert.SerializeObject(test);
+                            client.BaseAddress = new Uri(baseURL);
+                            client.DefaultRequestHeaders.Clear();
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                            var appcontent = new StringContent(testobj, UnicodeEncoding.UTF8, "application/json");
+                            HttpResponseMessage httpmsg = await client.PostAsync("/api/TestAPI/", appcontent);
+                            if (httpmsg.IsSuccessStatusCode)
+                            {
+                                TempData["alert"] = "Test Created Successfully!!!";
+                                return RedirectToAction("Dashboard", "Doctor", "");
+
+                            }
+                        }
+
 
                     }
-                }
-
-
-            }
-            catch
-            {
-                return View();
-            }
-            return View();
+                    catch
+                    {
+                        TempData["alert1"] = "Error";
+                        return View();
+                    }
+                
+                
+            
+            
+        return View();
         }
            
  
         public async Task<ActionResult> LoadAppointments()
         {
+            List<APPOINTMENT> ap = new List<APPOINTMENT>();
             string doctorname=TempData["lUsername"].ToString();
             
             List<APPOINTMENT> apps = new List<APPOINTMENT>();
@@ -132,9 +140,7 @@ namespace HMSClientMVC.Controllers
 
             }
 
-            string html = "<link href=\"/Content/Style.css\"  rel=\"stylesheet\" media=\"all\" />";
-            html += "<table>";
-            html += "<tr><th>Patient ID</th><th>Appointment ID</th><th>AppointmentDate</th><th>Doctor ID</th></tr>";
+            
             string did = null;
             foreach (DOCTOR d in docs)
             {
@@ -146,18 +152,14 @@ namespace HMSClientMVC.Controllers
                     {
                         if (a.DoctorID == did)
                         {
-                            html += "<tr><td>" + a.PID + "</td>";
-                            html += "<td>" + a.AppointmentID + "</td>";
-                            html += "<td>" + a.AppointmentDate + "</td>";
-                            html += "<td>" + a.DoctorID + "</td>";
+                            ap.Add(a);
                         }
                     }
 
                 }
             }
-            html += "</html>";
-
-            return new ContentResult() { Content = html, ContentType = "text/html" };
+           
+            return View(ap);
         }
 
        
@@ -228,6 +230,8 @@ namespace HMSClientMVC.Controllers
             return View();
            
         }
+
+
 
         public async Task<ActionResult> AdmitPatient()
         {
