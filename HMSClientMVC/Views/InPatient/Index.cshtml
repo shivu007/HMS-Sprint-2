@@ -9,35 +9,45 @@
 <hr>
 
 <div>
+  <button id="View" class="btn-primary" style="height: 40px; width: 150px; color: white; background-color: #222222">
+   @Ajax.ActionLink("Book Appointment", "Create", new AjaxOptions
+{
+
+    HttpMethod = "Get",
+    UpdateTargetId = "Display",
+    InsertionMode = InsertionMode.Replace
 
 
-
-    <button id="View" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
-        @Ajax.ActionLink("Report", "IViewReport", new AjaxOptions
-   {
-
-       HttpMethod = "Get",
-       UpdateTargetId = "Display",
-       InsertionMode = InsertionMode.Replace
+})
+        </button>
 
 
-        })
+        <button id="View" class="btn-primary" style="height: 40px; width: 150px; color: white; background-color: #222222">
+            @Ajax.ActionLink("Report", "IViewReport", new AjaxOptions
+       {
 
-    </button>
+           HttpMethod = "Get",
+           UpdateTargetId = "Display",
+           InsertionMode = InsertionMode.Replace
 
 
-    <button id="Bill" class="btn-primary" style="height: 40px; width: 90px; color: white; background-color: #222222">
-        @Ajax.ActionLink("Bill", "IBill", "InPatient", new AjaxOptions
-     {
-            LoadingElementId = "div_loading",
+            })
 
-            HttpMethod = "Get",
+        </button>
 
-            UpdateTargetId = "Display",
-            InsertionMode = InsertionMode.Replace
-        })
 
-    </button>
+        <button id="Bill" class="btn-primary" style="height: 40px; width: 150px; color: white; background-color: #222222">
+            @Ajax.ActionLink("Bill", "IBill", "InPatient", new AjaxOptions
+         {
+                LoadingElementId = "div_loading",
+
+                HttpMethod = "Get",
+
+                UpdateTargetId = "Display",
+                InsertionMode = InsertionMode.Replace
+            })
+
+        </button>
 
 
 </div>

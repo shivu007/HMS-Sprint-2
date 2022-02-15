@@ -15,9 +15,12 @@ namespace HMSClientMVC.Controllers
 {
     public class InPatientController : Controller
     {
+
         List<IBILL> ibill = new List<IBILL>();
+        static List<DOCTOR> docs = new List<DOCTOR>();
         List<Test> test = new List<Test>();
         List<PATIENT> patients = new List<PATIENT>();
+        List<PATIENT> pari = new List<PATIENT>();
         List<APPOINTMENT> app = new List<APPOINTMENT>();
         string uid;
         string uname;
@@ -31,30 +34,65 @@ namespace HMSClientMVC.Controllers
 
 
         // GET: InPatient/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+           using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseURL);
+                HttpResponseMessage httpmsg = await client.GetAsync("/api/DoctorAPI/");
+
+                if (httpmsg.IsSuccessStatusCode)
+                {
+                    var response = httpmsg.Content.ReadAsStringAsync().Result;
+                    docs = JsonConvert.DeserializeObject<List<DOCTOR>>(response);
+                    ViewBag.doctor = docs;
+                    
+                }
+            
+            }
             return View();
         }
 
         // POST: InPatient/Create
+
         [HttpPost]
         public async Task<ActionResult> Create(APPOINTMENT appointment)
         {
-
+            ViewBag.doctor = docs;
+          
             try
             {
                 // TODO: Add insert logic here
                 using (HttpClient client = new HttpClient())
                 {
-                    string appobj = JsonConvert.SerializeObject(appointment);
                     client.BaseAddress = new Uri(baseURL);
+                    HttpResponseMessage httpmsgp = await client.GetAsync("/api/PatientAPI/");
+                    string pname = TempData["lUsername"].ToString();
+                    if (httpmsgp.IsSuccessStatusCode)
+                    {
+                        var response = httpmsgp.Content.ReadAsStringAsync().Result;
+                        pari = JsonConvert.DeserializeObject<List<PATIENT>>(response);
+                        foreach (PATIENT p in pari)
+                        {
+                            if (p.Username == pname)
+                            {
+                                appointment.PID = p.PID;
+                            }
+                        }
+
+                    }
+                    string appobj = JsonConvert.SerializeObject(appointment);
+                    
                     client.DefaultRequestHeaders.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     var appcontent = new StringContent(appobj, UnicodeEncoding.UTF8, "application/json");
+                    
                     HttpResponseMessage httpmsg = await client.PostAsync("/api/AppointmentAPI/", appcontent);
+
                     if (httpmsg.IsSuccessStatusCode)
                     {
+
                         return RedirectToAction("Index");
                     }
                 }
@@ -65,10 +103,9 @@ namespace HMSClientMVC.Controllers
             {
                 return View();
             }
-        
+
             return View();
         }
-
 
         public async Task<ActionResult> IBill()
         {
@@ -179,7 +216,7 @@ namespace HMSClientMVC.Controllers
 
                                     tests.Add(t);
                                 }
-                                return View(test);
+                              
                             }
                             return View(tests);
                         }

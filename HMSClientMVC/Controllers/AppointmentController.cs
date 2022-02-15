@@ -34,10 +34,9 @@ namespace HMSClientMVC.Controllers
             ViewBag.categories = data1;
            
                 
-                patient.Username = TempData["lUsername"].ToString();
+                string uname = TempData["lUsername"].ToString();
+                patient.Username = uname;
                 patient.PatientType = "In Patient";
-
-
                 try
                 {
                     // TODO: Add insert logic here

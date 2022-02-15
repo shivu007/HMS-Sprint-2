@@ -4,7 +4,23 @@
     ViewBag.Title = "OPatientRegister";
 }
 <h2 style="text-decoration-color:#000000"><b>OPatientRegister</b></h2>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 
+    <link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/themes/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#Pdob").datepicker({
+                
+                maxDate: "-1M -1D",
+            });
+        });
+    </script>
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -76,4 +92,5 @@
         </div>
     </div>
 }
+
 

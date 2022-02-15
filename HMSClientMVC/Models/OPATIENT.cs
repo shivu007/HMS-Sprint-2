@@ -15,9 +15,9 @@ namespace HMSClientMVC.Models
         [Required]
         public string DID { get; set; }
         [Required]
-        public System.DateTime ADMISSION_DATE { get; set; }
+        public DateTime ADMISSION_DATE { get; set; }
         [Required]
-        public System.DateTime DISCHARGE_DATE { get; set; }
+        public DateTime DISCHARGE_DATE { get; set; }
         [Required]
         public string RoomType { get; set; }
         [Required]

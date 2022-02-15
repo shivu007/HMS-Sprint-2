@@ -25,3 +25,7 @@ button {
     background-color: #68a5ce;
     text-decoration-color: white;
 }
+
+a.my-class {
+    color: #FFFFFF
+}

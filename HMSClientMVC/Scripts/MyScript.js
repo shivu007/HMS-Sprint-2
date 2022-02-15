@@ -22,3 +22,22 @@ $("#TotalDays").change(function () {
 
 });
 
+$(document).ready(function () {
+    $("#AppointmentDate").datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: -0,
+        maxDate: "+0M +0D"
+
+    });
+});
+//function(AppointmentDate) {
+//    var CurrentDate = Date.now();
+//    var AppointmentDate = moment("#AppointmentDate");
+
+//    if (!(AppointmentDate > CurrentDate))
+//        alert("Invalid Date");
+//    else
+//        $("#AppointmentDate").val(AppointmentDate);
+//}
+
+

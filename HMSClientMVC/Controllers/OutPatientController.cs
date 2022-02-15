@@ -177,7 +177,7 @@ namespace HMSClientMVC.Controllers
         public async Task<ActionResult> OViewReport()
         {
             List<Test> tests = new List<Test>();
-            uname = TempData["lUsername"].ToString();
+            String name = TempData["lUsername"].ToString();
 
             using (HttpClient client = new HttpClient())
             {
@@ -190,7 +190,7 @@ namespace HMSClientMVC.Controllers
                         patients = JsonConvert.DeserializeObject<List<PATIENT>>(responseap);
                         foreach (PATIENT p in patients)
                         {
-                            if (p.Username == uname)
+                            if (p.Username == name)
                             {
                                 uid = p.PID;
                             }
@@ -201,7 +201,7 @@ namespace HMSClientMVC.Controllers
                         if (httptest.IsSuccessStatusCode)
                         {
                             var responseapp = httptest.Content.ReadAsStringAsync().Result;
-                            tests = JsonConvert.DeserializeObject<List<Test>>(responseapp);
+                            test = JsonConvert.DeserializeObject<List<Test>>(responseapp);
                             
                             foreach (Test t in test)
                             {
@@ -211,13 +211,15 @@ namespace HMSClientMVC.Controllers
                                     tests.Add(t);
 
                                 }
-                                return View(tests); 
+                               
                             }
-                           
+                       
                         }
+                    
                     }
+                return View(tests);
             }
-            return View();
+            
         }
     }
 }
